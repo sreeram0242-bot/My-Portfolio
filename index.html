@@ -23,7 +23,6 @@
        ======================================================================== -->
   <header class="mobile-top-bar" id="mobile-top-bar">
     <a href="#hero" class="nav-brand">
-      <img src="assets/images/sreeram-avatar.png" alt="Sreeram" class="brand-avatar">
       <div class="brand-text">
         <span class="brand-name">Sreeram</span>
         <span class="brand-sub">Fullstack & AI</span>
@@ -84,6 +83,18 @@
         
         <!-- Left: Text & Bio -->
         <div class="hero-content">
+          <!-- Mobile Compact Identity (Visible on mobile screens) -->
+          <div class="hero-mobile-profile">
+            <img src="assets/images/sreeram-avatar.png" alt="Sreeram" class="hero-mobile-avatar">
+            <div class="hero-mobile-meta">
+              <span class="hero-mobile-name">Sreeram</span>
+              <span class="hero-mobile-role">
+                <span class="status-dot"></span>
+                <span>Full Stack Developer</span>
+              </span>
+            </div>
+          </div>
+
           <div class="hero-pill-badge">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="anim-pulse"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             <span>Fullstack Developer &bull; Using AI Wisely</span>
@@ -921,14 +932,35 @@
               <input type="text" id="contact-email" class="form-input" placeholder="alex@company.com or +91..." required>
             </div>
 
-            <div class="form-group">
-              <label for="contact-subject" class="form-label">Project Type</label>
-              <select id="contact-subject" class="form-input" style="appearance: auto;">
-                <option value="POS / Biometric Software">POS / Biometric Software Integration</option>
-                <option value="Fullstack Web App">Fullstack Web App / SaaS</option>
-                <option value="AI Automation Workflow">AI Automation & Agentic Workflow</option>
-                <option value="Consulting / Freelance">Consulting / Development Contract</option>
-              </select>
+            <div class="form-group custom-select-group">
+              <label id="contact-subject-label" class="form-label">Project Type</label>
+              <div class="custom-select-wrapper" id="custom-project-select">
+                <button type="button" class="custom-select-trigger" id="contact-subject-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="contact-subject-label contact-subject-trigger">
+                  <span class="custom-select-label" id="contact-subject-text">POS / Biometric Software Integration</span>
+                  <svg class="custom-select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="custom-select-menu" role="listbox" id="project-options-list">
+                  <div class="custom-option selected" data-value="POS / Biometric Software Integration" role="option" aria-selected="true">
+                    <span>POS / Biometric Software Integration</span>
+                    <svg class="option-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <div class="custom-option" data-value="Fullstack Web App / SaaS" role="option" aria-selected="false">
+                    <span>Fullstack Web App / SaaS</span>
+                    <svg class="option-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <div class="custom-option" data-value="AI Automation & Agentic Workflow" role="option" aria-selected="false">
+                    <span>AI Automation & Agentic Workflow</span>
+                    <svg class="option-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <div class="custom-option" data-value="Consulting / Development Contract" role="option" aria-selected="false">
+                    <span>Consulting / Development Contract</span>
+                    <svg class="option-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                </div>
+                <input type="hidden" id="contact-subject" name="project_type" value="POS / Biometric Software Integration">
+              </div>
             </div>
 
             <div class="form-group">

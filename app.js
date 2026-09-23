@@ -342,6 +342,89 @@ console.<span class="stream-func">log</span>(\`Verified \${res.checks} checks. 0
   }
 
   /* ========================================================================
+     6. CUSTOM SELECT DROPDOWN (Website UI Match & Boundary-Safe)
+     ======================================================================== */
+  const customSelect = document.getElementById('custom-project-select');
+  if (customSelect) {
+    const trigger = customSelect.querySelector('.custom-select-trigger');
+    const label = customSelect.querySelector('.custom-select-label');
+    const hiddenInput = document.getElementById('contact-subject');
+    const options = customSelect.querySelectorAll('.custom-option');
+
+    function toggleSelect(open) {
+      const willOpen = typeof open === 'boolean' ? open : !customSelect.classList.contains('open');
+      customSelect.classList.toggle('open', willOpen);
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      }
+    }
+
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleSelect();
+      });
+    }
+
+    options.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = opt.getAttribute('data-value') || '';
+        const text = opt.querySelector('span') ? opt.querySelector('span').textContent.trim() : val;
+
+        options.forEach(o => {
+          o.classList.remove('selected');
+          o.setAttribute('aria-selected', 'false');
+        });
+        opt.classList.add('selected');
+        opt.setAttribute('aria-selected', 'true');
+
+        if (label) label.textContent = text;
+        if (hiddenInput) {
+          hiddenInput.value = val;
+          hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        toggleSelect(false);
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!customSelect.contains(e.target)) {
+        toggleSelect(false);
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && customSelect.classList.contains('open')) {
+        toggleSelect(false);
+      }
+    });
+
+    // Reset support
+    if (contactForm) {
+      contactForm.addEventListener('reset', () => {
+        setTimeout(() => {
+          const firstOpt = options[0];
+          if (firstOpt) {
+            options.forEach(o => {
+              o.classList.remove('selected');
+              o.setAttribute('aria-selected', 'false');
+            });
+            firstOpt.classList.add('selected');
+            firstOpt.setAttribute('aria-selected', 'true');
+            const defaultText = firstOpt.querySelector('span') ? firstOpt.querySelector('span').textContent.trim() : '';
+            if (label) label.textContent = defaultText;
+            if (hiddenInput) hiddenInput.value = firstOpt.getAttribute('data-value') || '';
+          }
+        }, 10);
+      });
+    }
+  }
+
+  /* ========================================================================
      7. TACTILE HAPTIC TOUCH FEEDBACK
      ======================================================================== */
   const touchInteractiveElements = document.querySelectorAll('.btn, .glass-tab-btn, .mobile-dock-link, .quick-contact-btn, .insta-project-card');
