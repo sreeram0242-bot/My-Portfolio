@@ -1,0 +1,6 @@
+.git
+.gitignore
+scratch/
+temp_screens/
+temp_audit/
+*.log
