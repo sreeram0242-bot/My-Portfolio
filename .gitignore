@@ -1,0 +1,6 @@
+scratch/
+temp_screens/
+*.png
+*.jpg
+*.log
+.DS_Store
