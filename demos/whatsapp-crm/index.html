@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.3, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes">
+  <link rel="stylesheet" href="../shared/pc-desktop-mode.css">
+  <script src="../shared/pc-desktop-mode.js"></script>
+  <title>Aura Outreach — WhatsApp CRM Pro</title>
+  <meta name="description" content="Enterprise WhatsApp outreach and campaign management CRM with antiban pacing, per-project customization, and unified inbox.">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <script>
+    // Universal In-Memory Standalone Simulation Layer for 100% Original UI
+    (function() {
+      const gymflowTemplate = `Introducing Aura Outreach - WhatsApp CRM Pro!
+
+Manage your WhatsApp marketing smarter and faster:
+• Unified inbox for all customer chats
+• Automated replies and follow-ups
+• Contact organization and audience targeting
+• Anti-ban safeguards active
+• Message scheduling and campaign tracking
+• WhatsApp button automation
+
+Book your free demo today!
+Reply \"DEMO\" to get started.
+
+• Reply 1 or DEMO
+• Reply 2 or Pricing & Plans
+• Reply 3 or Not Now`;
+
+      const gymflowProduct = {
+        id: "gymflow",
+        name: "GYMFLOW",
+        price: "₹7,999",
+        color: "#00ff55",
+        description: "Industrial Gym Biometric ERP",
+        title: "Q3 Product Outreach",
+        messageTemplate: gymflowTemplate,
+        interactionMode: "TEXT",
+        quickReplies: [
+          { id: "1", title: "DEMO" },
+          { id: "2", title: "Pricing & Plans" },
+          { id: "3", title: "Not Now" }
+        ]
+      };
+
+      const gymflowButtons = [
+        { id: "b1", label: "DEMO", actionType: "AUTO_REPLY", replyText: "Thank you for requesting a demo! Our team will reach out." },
+        { id: "b2", label: "Pricing & Plans", actionType: "AUTO_REPLY", replyText: "GymFlow pricing starts at ₹7,999 with biometric hardware." },
+        { id: "b3", label: "Not Now", actionType: "BLACKLIST", replyText: "You will not receive further messages." }
+      ];
+
+      const mockContacts = [
+        { id: "c1", name: "Rahul Sharma", phone: "+91 98401 23456", category: "Gym Owners", status: "INTERESTED", company: "FitZone Studio" },
+        { id: "c2", name: "Priya Soundar", phone: "+91 97102 88412", category: "Retail Leads", status: "PRICING", company: "Aura Boutique" },
+        { id: "c3", name: "Vikram Tech", phone: "+91 90031 99120", category: "Restaurant Partners", status: "REPLIED", company: "Bistro Grill" },
+        { id: "c4", name: "Anand Kumar", phone: "+91 98840 11223", category: "Gym Owners", status: "SENT", company: "Iron Core Gym" },
+        { id: "c5", name: "Deepak Raj", phone: "+91 94441 55667", category: "Retail Leads", status: "READY", company: "Apex Fitness" }
+      ];
+
+      const origFetch = window.fetch;
+      window.fetch = async function(url, options = {}) {
+        const u = typeof url === 'string' ? url : url.url;
+
+        if (u.includes('/api/products') && u.includes('/buttons')) {
+          return new Response(JSON.stringify({ success: true, buttons: gymflowButtons }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/products/gymflow')) {
+          return new Response(JSON.stringify({ success: true, product: gymflowProduct }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/products/') && (u.includes('/template') || options.method === 'POST')) {
+          return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/products')) {
+          return new Response(JSON.stringify({ success: true, products: [gymflowProduct] }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/session/status')) {
+          return new Response(JSON.stringify({ success: true, status: "QR_READY", phone: null, pushName: null, qr: null }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/safeguards')) {
+          return new Response(JSON.stringify({ success: true, pacingMin: 8, pacingMax: 20, dailyLimit: 350, humanTyping: true, spintaxEnabled: true, allOn: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/contacts/categories')) {
+          return new Response(JSON.stringify({ success: true, categories: ["Gym Owners", "Retail Leads", "Restaurant Partners"] }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/contacts')) {
+          return new Response(JSON.stringify({ success: true, contacts: mockContacts, total: 156 }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/autopilot/state')) {
+          return new Response(JSON.stringify({ success: true, running: false, leadsCount: 156, sentToday: 0, status: "idle" }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/chats')) {
+          return new Response(JSON.stringify({
+            success: true,
+            chats: [
+              {
+                id: "9840123456",
+                name: "Preview Contact",
+                phone: "+91 98401 23456",
+                unreadCount: 0,
+                lastMessage: {
+                  body: "• Reply 1 or DEMO\n• Reply 2 or Pricing & Plans\n• Reply 3 or Not Now",
+                  fromMe: true,
+                  timestamp: Date.now() / 1000
+                }
+              }
+            ]
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/stats')) {
+          return new Response(JSON.stringify({
+            success: true,
+            stats: { total: "156", sent: "0", noReply: "0", replied: "0", interested: "0", optOut: "0" }
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/queue/status')) {
+          return new Response(JSON.stringify({ success: true, status: "idle", sentToday: 0, total: 156 }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+
+        return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+      };
+
+      window.EventSource = function() {
+        return {
+          addEventListener: () => {},
+          removeEventListener: () => {},
+          close: () => {}
+        };
+      };
+    })();
+  </script>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      #111B21;
+      --banner-match-border:  rgba(255,255,255,0.08);
+      --banner-match-text:    #E9EDEF;
+      --banner-match-btn-bg:  #202C33;
+    }
+    .demo-top-banner {
+      background: var(--banner-match-bg, #111B21) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-title-pill, .demo-title-pill strong {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-repo-link {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Universal Floating Portfolio Demo Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>Aura Outreach &bull; WhatsApp CRM Pro</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/Whatsapp-CRM" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+<div class="app-shell">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIDEBAR
+  ═══════════════════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">Aura Outreach</div>
+        <div class="brand-sub">WhatsApp CRM Pro</div>
+      </div>
+    </div>
+
+    <div class="sidebar-scroll">
+      <div class="nav-section-label">Workspace</div>
+
+      <div class="nav-link active" data-tab="campaigns">
+        <span class="nav-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+        <span>Campaign Studio</span>
+      </div>
+
+      <div class="nav-link" data-tab="inbox">
+        <span class="nav-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></span>
+        <span>Unified Inbox</span>
+        <span class="nav-badge" id="sb-inbox-badge">Live</span>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-right:12px;margin-top:6px;margin-bottom:4px;">
+        <div class="nav-section-label" style="margin-bottom:0;padding-bottom:0;">Projects</div>
+        <button type="button" class="btn btn-ghost btn-xs" id="sidebar-add-project-btn" title="Create New Project" style="padding:2px 7px;color:var(--accent);font-size:11px;gap:3px;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New
+        </button>
+      </div>
+
+      <div id="sidebar-projects-list"></div>
+
+      <div class="nav-section-label">Tools</div>
+
+      <div class="nav-link" data-tab="safeguards">
+        <span class="nav-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span>15 Antiban Shields</span>
+        <span class="nav-badge">All ON</span>
+      </div>
+
+      <div class="nav-link" data-tab="audience">
+        <span class="nav-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span>Audiences</span>
+      </div>
+
+      <div class="nav-link" id="nav-calllist-btn" style="cursor:pointer;" title="View non-WhatsApp leads to call manually">
+        <span class="nav-icon" style="color:#ef4444;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+        <span>Call List</span>
+        <span class="nav-badge" id="sb-calllist-badge" style="background:rgba(234,67,53,0.2);color:#fca5a5;">7</span>
+      </div>
+
+      <div class="nav-link" data-tab="analytics">
+        <span class="nav-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+        <span>Analytics</span>
+      </div>
+    </div>
+
+    <!-- WhatsApp Connection Card -->
+    <div class="sidebar-footer">
+      <div class="wa-session-card" id="open-qr-modal-btn">
+        <div class="flex items-center gap-2" style="gap:10px;">
+          <div class="session-dot disconnected" id="global-status-dot"></div>
+          <div>
+            <div style="font-size:12.5px;font-weight:700;color:var(--text-primary);" id="global-status-text">Not Connected</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">Tap to pair device</div>
+          </div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted);flex-shrink:0;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN AREA
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="main-area">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <h1 class="topbar-title" id="topbar-title">Campaign Studio</h1>
+      <div class="topbar-right">
+        <button class="btn btn-sm" id="topbar-autopilot-btn" onclick="window.openAutoPilot(true)" style="background:#00d455;color:#000;font-weight:700;padding:5px 12px;font-size:11.5px;display:inline-flex;align-items:center;gap:5px;box-shadow:0 0 14px rgba(0,212,85,0.4);cursor:pointer;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Start Auto-Pilot (156 Leads)
+        </button>
+        <div class="queue-status-pill" id="queue-pill" style="cursor:pointer;" title="Click to view queue options">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          <span id="queue-pill-text">Queue Idle</span>
+        </div>
+        <button class="btn btn-sm btn-primary" id="topbar-queue-action-btn" style="display:none;padding:4px 10px;font-size:11px;gap:5px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span id="topbar-queue-action-text">Resume Queue</span>
+        </button>
+        <button class="btn btn-secondary btn-sm" id="topbar-qr-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Pair WhatsApp
+        </button>
+      </div>
+    </header>
+
+    <!-- DYNAMIC VIEW CONTAINER -->
+    <div class="view-container">
+
+      <!-- ═════════════════════════════════════════════════
+           VIEW: CAMPAIGN STUDIO (per-project)
+      ═════════════════════════════════════════════════ -->
+      <div class="view-page active" id="view-campaigns">
+
+        <!-- Project Banner Card -->
+        <div class="project-banner-card" id="project-banner-card" style="display:none;">
+          <div style="position:relative;z-index:1;">
+            <div class="project-banner-title" id="campaign-project-name">Select a Project</div>
+            <div class="project-banner-subtitle" id="campaign-project-desc">Choose a project from the sidebar to compose a campaign</div>
+          </div>
+          <div style="z-index:1;display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-sm" id="banner-autopilot-btn" onclick="window.openAutoPilot(true)" style="background:#00d455;color:#000;font-weight:700;border:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 12px rgba(0,212,85,0.35);cursor:pointer;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Start Auto-Pilot (156 Leads)
+            </button>
+            <button class="btn btn-sm" id="btn-edit-project-settings" style="background:rgba(255,255,255,0.07);color:#f0f0f0;border:1px solid rgba(255,255,255,0.12);" title="Edit project settings">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Project
+            </button>
+            <button class="btn btn-sm" onclick="document.getElementById('new-project-modal').classList.add('open')" style="background:rgba(255,255,255,0.07);color:#f0f0f0;border:1px solid rgba(255,255,255,0.12);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Project
+            </button>
+          </div>
+        </div>
+
+        <!-- Per-Project Mini Stats Row -->
+        <div class="project-stats-row" id="project-stats-row">
+          <div class="mini-stat"><div class="mini-stat-value" id="ps-total">—</div><div class="mini-stat-label">Total Audience</div></div>
+          <div class="mini-stat"><div class="mini-stat-value" style="color:var(--blue);" id="ps-sent">—</div><div class="mini-stat-label">Messages Sent</div></div>
+          <div class="mini-stat"><div class="mini-stat-value" style="color:var(--amber);" id="ps-noreply">—</div><div class="mini-stat-label">No Reply</div></div>
+          <div class="mini-stat"><div class="mini-stat-value" style="color:var(--accent);" id="ps-replied">—</div><div class="mini-stat-label">Replied</div></div>
+          <div class="mini-stat"><div class="mini-stat-value" style="color:var(--green);" id="ps-interested">—</div><div class="mini-stat-label">Interested</div></div>
+          <div class="mini-stat"><div class="mini-stat-value" style="color:var(--rose);" id="ps-optout">—</div><div class="mini-stat-label">Opted Out</div></div>
+        </div>
+
+        <!-- Composer Layout -->
+        <div class="composer-layout">
+
+          <!-- LEFT: Composer Form -->
+          <div style="display:flex;flex-direction:column;gap:18px;">
+
+            <!-- Campaign Title + Product -->
+            <div class="card">
+              <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div class="form-group">
+                  <label class="form-label">Campaign Title</label>
+                  <input type="text" class="form-input" id="composer-title" value="Q3 Product Outreach" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Product / Project</label>
+                  <select class="form-select" id="composer-product-select"></select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message Template -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Message Template</div>
+                  <div class="card-subtitle">Supports spintax {Hi|Hello} and personalization variables</div>
+                </div>
+                <span class="badge badge-purple" style="font-size:11px;">Per-Project Saved</span>
+              </div>
+              <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
+                <div class="token-bar">
+                  <span class="token-chip" data-token="{{name}}">{{name}}</span>
+                  <span class="token-chip" data-token="{{company}}">{{company}}</span>
+                  <span class="token-chip" data-token="{{product}}">{{product}}</span>
+                  <span class="token-chip" data-token="{Hi|Hello|Hey}">Spintax</span>
+                </div>
+                <textarea class="form-textarea" id="composer-message-text" rows="5" placeholder="Write your message here..."></textarea>
+              </div>
+            </div>
+
+            <!-- Media Attachment -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">Media Attachment</div>
+                <span id="media-status-label" style="font-size:12px;color:var(--text-muted);">Optional — Photo or Video</span>
+              </div>
+              <div class="card-body" style="display:flex;align-items:center;gap:12px;">
+                <label class="btn btn-secondary" style="cursor:pointer;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  Upload Photo / Video
+                  <input type="file" id="composer-media-input" accept="image/*,video/*" style="display:none;">
+                </label>
+                <div id="media-preview-row" style="display:none;align-items:center;gap:10px;">
+                  <img id="media-preview-thumb" src="" alt="" style="width:40px;height:40px;border-radius:8px;object-fit:cover;border:1.5px solid var(--border-light);" />
+                  <button type="button" class="btn btn-danger btn-icon-sm" id="remove-media-btn" title="Remove">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Mode -->
+            <div class="card">
+              <div class="card-header"><div class="card-title">Delivery Format</div></div>
+              <div class="card-body">
+                <div class="mode-selector">
+                  <label class="mode-option">
+                    <input type="radio" name="interaction-mode" value="TEXT" checked>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+                    Conversational Micro-Reply (Recommended)
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="interaction-mode" value="POLL">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    1-Tap Poll Choice
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="interaction-mode" value="LINKS">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    1-Click Auto-Type Links
+                  </label>
+                </div>
+                <div class="mode-info-box" id="mode-info-box" style="margin-top:12px;padding:10px 12px;background:var(--bg-4);border:1px solid var(--b1);border-radius:8px;font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:8px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <div id="mode-info-text">
+                    <strong>Conversational Micro-Reply (Demo 3):</strong> Clean, human outreach with quick-reply options (e.g., <em>• Reply 1 or Interested</em>). Zero links to click, 100% natural conversational tone, and automated triggers respond immediately when a prospect replies with a number or keyword.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Buttons Editor -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Interactive Buttons</div>
+                  <div class="card-subtitle">Per-project — customize label, action, and automated reply</div>
+                </div>
+                <button class="btn btn-primary btn-sm" id="save-project-buttons-btn">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Save Buttons
+                </button>
+              </div>
+              <div class="card-body">
+                <div class="btn-editor-list" id="composer-buttons-list"></div>
+              </div>
+            </div>
+
+            <!-- Customer Selection for This Send -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Select Recipients</div>
+                  <div class="card-subtitle">Choose exactly who receives this campaign</div>
+                </div>
+                <div style="display:flex;gap:6px;align-items:center;">
+                  <span id="selected-count-badge" class="badge badge-purple">0 selected</span>
+                  <button type="button" class="btn btn-ghost btn-sm" id="select-all-customers-btn">Select All</button>
+                  <button type="button" class="btn btn-ghost btn-sm" id="deselect-all-customers-btn">Clear</button>
+                </div>
+              </div>
+              <div class="card-body" style="padding-top:10px;">
+                <!-- Quick add numbers -->
+                <div class="form-group" style="margin-bottom:12px;">
+                  <label class="form-label">
+                    <span>Quick Add Numbers</span>
+                    <span class="hint">phone, name, company — one per line</span>
+                  </label>
+                  <textarea class="form-textarea" id="composer-quick-numbers" rows="3" placeholder="+14155552671, Marcus Vance, Vance Logistics
++12125559823, Elena Rostova, Apex"></textarea>
+                </div>
+                <div class="customer-select-controls">
+                  <span style="font-size:12.5px;font-weight:600;color:var(--text-secondary);">Existing Contacts in this Project</span>
+                  <input type="text" class="form-input" id="customer-filter-input" placeholder="Filter by name, phone, or category..." style="width:210px;font-size:12px;padding:5px 10px;" />
+                </div>
+
+                <!-- 1-Tap Category Selector Bar -->
+                <div id="composer-category-bar" class="composer-category-container">
+                  <div class="composer-category-header">
+                    <div class="composer-category-title">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                      <span>Categories (Touch Category to Select All):</span>
+                    </div>
+                    <div class="composer-category-actions">
+                      <button type="button" id="cat-btn-select-all" class="composer-category-btn">Select All in View</button>
+                      <button type="button" id="cat-btn-clear" class="composer-category-btn">Deselect All</button>
+                    </div>
+                  </div>
+                  <div id="composer-category-chips" class="composer-category-chips"></div>
+                </div>
+
+                <div class="customer-select-list" id="customer-select-list"></div>
+              </div>
+            </div>
+
+            <!-- Campaign Launch Action Buttons -->
+            <div style="display:flex;flex-direction:column;gap:9px;margin-top:4px;">
+              <button type="button" class="btn btn-primary" id="launch-autopilot-btn" onclick="window.openAutoPilot(false)" style="padding:13px 18px;font-size:13.5px;font-weight:700;width:100%;box-shadow:0 4px 20px rgba(0,212,85,0.25);cursor:pointer;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Launch WhatsApp Web Auto-Pilot (Ban-Safe)
+              </button>
+              <button type="button" class="btn btn-secondary" id="resume-autopilot-btn" onclick="window.openAutoPilot(true)" style="padding:10px 16px;font-size:12.5px;font-weight:700;width:100%;background:rgba(0,212,85,0.1);border:1px solid rgba(0,212,85,0.35);color:var(--green);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> Resume Last Campaign (161 Queued Erode Gyms)
+              </button>
+              <!-- Background Queue Removed: Outreach is exclusively handled via Ban-Safe Auto-Pilot -->
+            </div>
+          </div>
+
+          <!-- RIGHT: Realistic Light-Theme WhatsApp Phone Simulator -->
+          <div class="phone-wrap">
+            <div class="phone-shell">
+              <div class="phone-screen">
+                <!-- Status bar -->
+                <div class="phone-status-row">
+                  <span>9:41</span>
+                  <div style="display:flex;gap:5px;align-items:center;">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                    <div style="width:15px;height:7px;border:1.5px solid rgba(255,255,255,0.9);border-radius:2px;position:relative;"><div style="width:9px;height:3.5px;background:rgba(255,255,255,0.9);position:absolute;top:1px;left:1px;"></div></div>
+                  </div>
+                </div>
+
+                <!-- WA Header -->
+                <div class="wa-chat-top">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                  <div class="wa-avatar-ring">P</div>
+                  <div style="flex:1;">
+                    <div class="wa-contact-name-display" id="wa-sim-name">Preview Contact</div>
+                    <div class="wa-contact-status">online</div>
+                  </div>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="wa-messages-area" id="wa-sim-canvas">
+                  <!-- Date bubble -->
+                  <div style="text-align:center;margin:6px 0;">
+                    <span style="background:rgba(0,255,85,0.1);font-size:10px;padding:2px 10px;border-radius:10px;color:rgba(0,255,85,0.7);font-weight:600;border:1px solid rgba(0,255,85,0.2);">Today</span>
+                  </div>
+                  <!-- Default outbound bubble -->
+                  <div class="wa-msg-out">
+                    <div id="wa-preview-media" style="display:none;" class="wa-msg-media"></div>
+                    <div id="wa-preview-text">Hello Marcus! Check out our latest update.</div>
+                    <div class="wa-msg-time">
+                      <span>9:41 AM</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34B7F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L7 17l-5-5"/><path d="M22 10l-7.5 7.5L13 16"/></svg>
+                    </div>
+                  </div>
+                  <!-- Buttons stacked below bubble -->
+                  <div class="wa-btns-stack" id="wa-preview-buttons"></div>
+                </div>
+
+                <!-- WA Input Bar -->
+                <div class="wa-input-bar">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                  <div class="wa-input-field">Message</div>
+                  <div style="width:32px;height:32px;background:rgba(0,255,85,0.2);border:1px solid rgba(0,255,85,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════════════════════════════════════════════
+           VIEW: UNIFIED INBOX
+      ═════════════════════════════════════════════════ -->
+      <div class="view-page" id="view-inbox">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Unified Multi-Product Inbox</div>
+            <div class="section-subtitle">All conversations filtered by project and status in real time</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <select class="form-select" id="inbox-project-filter" style="width:200px;font-size:12.5px;padding:7px 10px;"></select>
+          </div>
+        </div>
+
+        <div class="inbox-grid">
+          <!-- Left: Contacts Panel -->
+          <div class="inbox-contacts-panel">
+            <div class="inbox-top-bar">
+              <div class="inbox-search-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted);flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="inbox-search-input" id="inbox-search-input" placeholder="Search by name, phone…" />
+              </div>
+              <div class="status-tabs" id="inbox-status-tabs">
+                <span class="status-tab active" data-status="all">All</span>
+                <span class="status-tab" data-status="REPLIED"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:4px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Replied</span>
+                <span class="status-tab" data-status="NOT_REPLIED"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:3px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Not Replied</span>
+                <span class="status-tab" data-status="PRICING"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg> Pricing</span>
+                <span class="status-tab" data-status="INTERESTED"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:middle;display:inline-block;margin-right:3px;color:#f59e0b;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Interested</span>
+                <span class="status-tab" data-status="SENT">Sent</span>
+                <span class="status-tab" data-status="QUEUED">Queued</span>
+                <span class="status-tab" data-status="BLACKLISTED">Opted Out</span>
+              </div>
+            </div>
+            <div class="contacts-list" id="inbox-contacts-list">
+              <div class="empty-state">
+                <div class="empty-state-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg></div>
+                <div class="empty-state-title">No conversations yet</div>
+                <div class="empty-state-desc">Launch a campaign to see conversations appear here.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Chat Thread -->
+          <div class="inbox-chat-pane" id="inbox-chat-pane">
+            <div class="empty-state" style="flex:1;justify-content:center;">
+              <div class="empty-state-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="empty-state-title">Select a Conversation</div>
+              <div class="empty-state-desc">Pick a contact from the left panel to view and reply.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════════════════════════════════════════════
+           VIEW: ANTIBAN SAFEGUARDS
+      ═════════════════════════════════════════════════ -->
+      <div class="view-page" id="view-safeguards">
+        <div class="section-header">
+          <div>
+            <div class="section-title">15 Anti-Ban Safeguards Studio</div>
+            <div class="section-subtitle">Operational pacing & safety rules enforced by the Antiban Queue Engine</div>
+          </div>
+          <span class="badge badge-green" style="padding:6px 14px;font-size:12px;">Engine Active</span>
+        </div>
+        <div class="safeguards-grid" id="safeguards-grid"></div>
+      </div>
+
+      <!-- ═════════════════════════════════════════════════
+           VIEW: AUDIENCES (Per-Project + Category CRM)
+      ═════════════════════════════════════════════════ -->
+      <div class="view-page" id="view-audience">
+        <!-- Audience Top Bar -->
+        <div class="section-header">
+          <div>
+            <div class="section-title">Audience Manager</div>
+            <div class="section-subtitle" id="audience-count-label">Select a project to manage contacts</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input type="text" class="form-input" id="audience-search-input" placeholder="Search contacts…" style="width:200px;font-size:12.5px;padding:7px 11px;" />
+            <button class="btn btn-secondary btn-sm" id="audience-add-contact-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Contact
+            </button>
+            <button class="btn btn-primary btn-sm" id="open-import-modal-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import CSV / Contacts
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Layout -->
+        <div style="display:grid;grid-template-columns:230px 1fr;gap:16px;height:calc(100vh - 178px);">
+
+          <!-- LEFT: Project + Category Tree -->
+          <div style="background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--r-xl);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-card);">
+            <div style="padding:13px 14px;border-bottom:1px solid var(--border-light);background:var(--bg-page);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Projects</div>
+                <button type="button" class="btn btn-ghost btn-xs" id="audience-new-project-btn" title="Create New Project" style="padding:2px 6px;color:var(--accent);font-size:11px;gap:3px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  New
+                </button>
+              </div>
+              <div id="audience-project-tree" style="display:flex;flex-direction:column;gap:3px;"></div>
+            </div>
+            <div style="flex:1;overflow-y:auto;padding:12px;">
+              <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:8px;">Categories</div>
+              <div id="audience-category-tree" style="display:flex;flex-direction:column;gap:3px;">
+                <div style="font-size:12.5px;color:var(--text-muted);padding:6px 8px;">Select a project first</div>
+              </div>
+              <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border-light);">
+                <button class="btn btn-ghost btn-sm" id="audience-add-category-btn" style="width:100%;justify-content:flex-start;gap:7px;font-size:12px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  New Category
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Contact Table -->
+          <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+            <!-- Breadcrumb + actions bar -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--r-lg);box-shadow:var(--shadow-card);">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span id="audience-project-badge" class="badge badge-purple" style="font-size:11.5px;padding:3px 10px;">All Projects</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-muted);"><polyline points="9 18 15 12 9 6"/></svg>
+                <span id="audience-category-badge" class="badge badge-default" style="font-size:11.5px;padding:3px 10px;">All</span>
+                <span id="audience-count-badge" style="font-size:12px;color:var(--text-muted);margin-left:4px;"></span>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <button type="button" class="btn btn-secondary btn-sm" id="audience-view-calllist-btn" style="gap:6px;font-size:12px;color:#fca5a5;border-color:rgba(234,67,53,0.4);" title="View all non-WhatsApp numbers to call manually">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> Call List (<span id="audience-calllist-count">7</span>)
+                </button>
+                <button class="btn btn-danger btn-sm" id="audience-delete-selected-btn" style="display:none;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                  Delete Selected
+                </button>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="data-table-wrap" style="flex:1;overflow-y:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:34px;"><input type="checkbox" id="audience-select-all-chk" style="width:14px;height:14px;cursor:pointer;accent-color:var(--accent);" /></th>
+                    <th>Phone</th>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th style="text-align:right;width:100px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="audience-table-body">
+                  <tr><td colspan="8"><div class="empty-state"><div class="empty-state-title">Select a project to view contacts</div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- ═════════════════════════════════════════════════
+           VIEW: ANALYTICS
+      ═════════════════════════════════════════════════ -->
+      <div class="view-page" id="view-analytics">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Funnel Analytics</div>
+            <div class="section-subtitle">Real-time conversion metrics across all project campaigns</div>
+          </div>
+          <select class="form-select" id="analytics-project-filter" style="width:200px;font-size:12.5px;padding:7px 10px;">
+            <option value="all">All Projects</option>
+          </select>
+        </div>
+
+        <div class="stat-grid mb-4" id="analytics-stats-grid">
+          <div class="stat-card"><div class="stat-label">Total Audience</div><div class="stat-value" id="a-total">—</div></div>
+          <div class="stat-card"><div class="stat-label">Dispatched</div><div class="stat-value" style="color:var(--blue)" id="a-sent">—</div></div>
+          <div class="stat-card"><div class="stat-label">No Reply</div><div class="stat-value" style="color:var(--amber)" id="a-noreply">—</div></div>
+          <div class="stat-card"><div class="stat-label">Replied</div><div class="stat-value" style="color:var(--accent)" id="a-replied">—</div></div>
+          <div class="stat-card"><div class="stat-label">Interested</div><div class="stat-value" style="color:var(--green)" id="a-interested">—</div></div>
+          <div class="stat-card"><div class="stat-label">Pricing Req.</div><div class="stat-value" style="color:var(--purple)" id="a-pricing">—</div></div>
+          <div class="stat-card"><div class="stat-label">Opted Out</div><div class="stat-value" style="color:var(--rose)" id="a-optout">—</div></div>
+          <div class="stat-card">
+            <div class="stat-label">Reply Rate</div>
+            <div class="stat-value" id="a-replyrate">—</div>
+            <div class="stat-chip badge-green" id="a-replyrate-chip">vs All Sent</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /view-container -->
+  </div><!-- /main-area -->
+</div><!-- /app-shell -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL: WhatsApp QR Pairing
+═══════════════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="qr-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Pair WhatsApp Device</div>
+        <div class="modal-subtitle" id="modal-wa-status-text">Initializing session…</div>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="close-qr-modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="qr-frame">
+      <img id="modal-qr-img" src="" alt="WhatsApp QR" style="display:none;" />
+      <div id="modal-qr-placeholder" style="width:240px;height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-muted);gap:12px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        <span style="font-size:13px;font-weight:600;">Awaiting QR from Baileys…</span>
+      </div>
+    </div>
+
+    <div style="background:var(--bg-page);border-radius:var(--r-md);padding:12px 14px;font-size:12.5px;color:var(--text-secondary);line-height:1.6;">
+      <strong style="color:var(--text-primary);">How to pair:</strong>
+      <ol style="margin-left:18px;margin-top:4px;">
+        <li>Open WhatsApp on your phone</li>
+        <li>Go to <strong>Linked Devices</strong> → tap <strong>Link a Device</strong></li>
+        <li>Scan the QR code above</li>
+      </ol>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;gap:8px;">
+      <button class="btn btn-danger btn-sm" id="btn-logout-wa">Disconnect & Reset</button>
+      <button class="btn btn-primary btn-sm" id="btn-reconnect-wa">Refresh Connection</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL: Button Action Config
+═══════════════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="btn-config-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Configure Button</div>
+        <div class="modal-subtitle">Customize this button's label and what happens when a recipient taps it</div>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="close-btn-config-modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <input type="hidden" id="modal-btn-index" value="0" />
+
+    <div class="form-group">
+      <label class="form-label">Button Display Label</label>
+      <input type="text" class="form-input" id="modal-btn-label" placeholder="e.g. Interested, Get Quote, Book Demo" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Action on Tap</label>
+      <select class="form-select" id="modal-btn-action">
+        <option value="AUTO_TAG">AUTO_TAG — Tag as Lead & notify team</option>
+        <option value="AUTO_REPLY">AUTO_REPLY — Send instant follow-up message</option>
+        <option value="BLACKLIST">BLACKLIST — Suppress & auto-acknowledge opt-out</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Assign Contact Tag</label>
+      <input type="text" class="form-input" id="modal-btn-tag" placeholder="e.g. Hot Lead, Evaluating, Opted Out" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">
+        <span>Automated Reply Message</span>
+        <span class="hint">Leave empty for no automatic reply</span>
+      </label>
+      <textarea class="form-textarea" id="modal-btn-reply" rows="3" placeholder="Thanks {{name}}! We'll get back to you shortly…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">
+        <span>Attach Photo / Flyer to Auto-Reply</span>
+        <span class="hint">Optional — Sent automatically when recipient taps this option</span>
+      </label>
+      <input type="hidden" id="modal-btn-reply-media" value="" />
+      <input type="file" id="modal-btn-reply-media-file" accept="image/*" style="display:none;" />
+      <div id="modal-btn-media-preview-row" style="display:none;align-items:center;gap:10px;margin-bottom:8px;padding:8px 12px;background:var(--bg-page);border:1px solid var(--border-medium);border-radius:8px;">
+        <img id="modal-btn-media-img" src="" alt="Preview" style="width:46px;height:46px;object-fit:cover;border-radius:6px;border:1px solid var(--border-light);" />
+        <div style="flex:1;min-width:0;">
+          <div id="modal-btn-media-name" style="font-size:12px;font-weight:600;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">image.jpg</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Photo attached to auto-response</div>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="modal-btn-media-remove" style="color:var(--rose);padding:3px 8px;font-size:11px;">Remove</button>
+      </div>
+      <button type="button" class="btn btn-secondary btn-sm" id="modal-btn-upload-trigger" style="display:inline-flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span id="modal-btn-upload-label">Upload Photo / Flyer</span>
+      </button>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:8px;">
+      <button class="btn btn-ghost btn-sm" id="close-btn-config-modal-2">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="save-btn-config">Save Configuration</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL: New Project
+═══════════════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="new-project-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="new-project-modal-title">Create New Project</div>
+        <div class="modal-subtitle">Each project has its own buttons, message template, and audience</div>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="close-new-project-modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="edit-project-id" value="" />
+    <div class="form-group">
+      <label class="form-label">Project Name</label>
+      <input type="text" class="form-input" id="new-project-name" placeholder="e.g. Enterprise SaaS, Healthcare Leads" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <input type="text" class="form-input" id="new-project-desc" placeholder="Brief description of this campaign product" />
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label class="form-label">Pricing (optional)</label>
+        <input type="text" class="form-input" id="new-project-price" placeholder="$99/mo" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Brand Color</label>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <input type="color" id="new-project-color" value="#5B4CF5" style="width:40px;height:36px;border:1.5px solid var(--border-light);border-radius:8px;cursor:pointer;padding:2px;" />
+          <input type="text" class="form-input" id="new-project-color-hex" value="#5B4CF5" style="font-family:monospace;font-size:13px;" />
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;">
+      <button class="btn btn-ghost btn-sm" id="close-new-project-modal-2">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="save-new-project-btn">Create Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL: Bulk Contact Import (CSV Upload + Smart Mapping)
+═══════════════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="import-modal">
+  <div class="modal" style="width:640px;max-width:92vw;">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Bulk Contact Import</div>
+        <div class="modal-subtitle">Upload CSV spreadsheet or paste leads into any project & category</div>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="close-import-modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Project & Category Target -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label class="form-label">Target Project</label>
+        <select class="form-select" id="import-project-select"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Default Category / District <span class="hint">e.g. Karur District</span></label>
+        <input type="text" class="form-input" id="import-category-input" list="import-category-datalist" placeholder="e.g. Karur District, Gym Owners" />
+        <datalist id="import-category-datalist"></datalist>
+      </div>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="tab-pill-group">
+      <button type="button" class="tab-pill active" id="import-tab-csv">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Upload CSV File
+      </button>
+      <button type="button" class="tab-pill" id="import-tab-text">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+        Paste Raw Text
+      </button>
+    </div>
+
+    <!-- TAB 1: CSV FILE UPLOAD -->
+    <div id="import-csv-section" style="display:flex;flex-direction:column;gap:12px;">
+      <!-- Dropzone -->
+      <div class="csv-dropzone" id="csv-dropzone">
+        <input type="file" id="csv-file-input" accept=".csv,.txt,.tsv" style="display:none;" />
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <div style="font-weight:700;font-size:13px;color:var(--text-primary);">Click or drag & drop your CSV file here</div>
+        <div style="font-size:11.5px;color:var(--text-muted);">Supports standard CSV with Phone, Name, Company, Category/District</div>
+        <button type="button" class="btn btn-ghost btn-xs" id="download-sample-csv-btn" style="font-size:11px;color:var(--accent);padding:2px 8px;margin-top:2px;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Sample CSV Template
+        </button>
+      </div>
+
+      <!-- File Active Info (hidden until file chosen) -->
+      <div class="csv-file-card" id="csv-file-card" style="display:none;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div>
+            <div id="csv-filename-label" style="font-size:12.5px;font-weight:700;color:var(--text-primary);">contacts.csv</div>
+            <div id="csv-meta-label" style="font-size:11px;color:var(--text-muted);">14 KB &bull; 48 rows parsed</div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-ghost btn-xs" id="remove-csv-file-btn" style="color:var(--rose-text);font-size:11px;">Change File</button>
+      </div>
+
+      <!-- Column Mapping Selectors (hidden until file chosen) -->
+      <div id="csv-mapping-section" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Column Mapping</span>
+          <span style="font-size:11px;color:var(--accent);font-weight:600;">Auto-detected from CSV headers</span>
+        </div>
+        <div class="csv-mapping-grid">
+          <div class="csv-mapping-item">
+            <label>Phone Number *</label>
+            <select class="form-select" id="map-col-phone" style="font-size:11.5px;padding:4px 6px;"></select>
+          </div>
+          <div class="csv-mapping-item">
+            <label>Contact Name</label>
+            <select class="form-select" id="map-col-name" style="font-size:11.5px;padding:4px 6px;"></select>
+          </div>
+          <div class="csv-mapping-item">
+            <label>Company Name</label>
+            <select class="form-select" id="map-col-company" style="font-size:11.5px;padding:4px 6px;"></select>
+          </div>
+          <div class="csv-mapping-item">
+            <label>Category / District</label>
+            <select class="form-select" id="map-col-category" style="font-size:11.5px;padding:4px 6px;"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Data Preview Table (hidden until file chosen) -->
+      <div id="csv-preview-box" style="display:none;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Parsed Preview (First 4 Records)</span>
+          <span class="badge badge-green" id="csv-valid-count-badge" style="font-size:10.5px;padding:2px 8px;">0 valid</span>
+        </div>
+        <div class="csv-preview-box">
+          <table class="csv-preview-table">
+            <thead>
+              <tr>
+                <th style="width:30px;">#</th>
+                <th>Phone</th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody id="csv-preview-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PASTE RAW TEXT (Hidden by default) -->
+    <div id="import-text-section" style="display:none;flex-direction:column;gap:8px;">
+      <div class="form-group">
+        <label class="form-label">Phone Numbers <span class="hint">phone, name, company, category — one per line</span></label>
+        <textarea class="form-textarea" id="import-textarea" rows="6" placeholder="+919629661668, SreeRam, KarurFitnessGym, Karur District
++919842123456, Dr. Mohan, Apollo Clinic, Chennai District
++919788112233, Priya Sharma, FitLife Studio, Coimbatore District"></textarea>
+      </div>
+    </div>
+
+    <!-- Footer Controls -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:6px;border-top:1px solid var(--border-light);">
+      <div id="import-status-text" style="font-size:12px;color:var(--text-muted);">Select a CSV file to begin</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" id="close-import-modal-2">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="submit-import-btn" disabled>Import Contacts</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODAL: Add / Edit Contact
+═══════════════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="contact-modal">
+  <div class="modal" style="width:480px;">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="contact-modal-title">Add Contact</div>
+        <div class="modal-subtitle">Fill in the details below. Phone number is required.</div>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="close-contact-modal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <input type="hidden" id="contact-modal-id" value="" />
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label class="form-label">Phone Number *</label>
+        <input type="text" class="form-input" id="contact-modal-phone" placeholder="e.g. +919876543210" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="contact-modal-name" placeholder="e.g. Ravi Kumar" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label class="form-label">Company / Business</label>
+        <input type="text" class="form-input" id="contact-modal-company" placeholder="e.g. Sunrise Gym" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Category / District <span class="hint">used to group contacts</span></label>
+        <input type="text" class="form-input" id="contact-modal-category" placeholder="e.g. Chennai North, Tier 1" list="category-datalist" />
+        <datalist id="category-datalist"></datalist>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="form-group">
+        <label class="form-label">Project</label>
+        <select class="form-select" id="contact-modal-project"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-select" id="contact-modal-status">
+          <option value="READY">Ready</option>
+          <option value="NEW">New</option>
+          <option value="INTERESTED">Interested</option>
+          <option value="PRICING">Pricing Requested</option>
+          <option value="REPLIED">Replied</option>
+          <option value="BLACKLISTED">Blacklisted</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes</label>
+      <textarea class="form-textarea" id="contact-modal-notes" rows="2" placeholder="Any notes about this contact…"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;">
+      <button class="btn btn-ghost btn-sm" id="close-contact-modal-2">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="save-contact-btn">Save Contact</button>
+    </div>
+  </div>
+</div>
+<!-- ═════════════════════════════════════════════════════
+     MODAL: WHATSAPP WEB AUTO-PILOT RUNNER
+═════════════════════════════════════════════════════ -->
+<div class="modal-bg modal-backdrop" id="autopilot-modal">
+  <div class="modal-box" style="max-width:560px;">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(0,212,85,0.15);border:1px solid rgba(0,212,85,0.3);display:flex;align-items:center;justify-content:center;color:var(--green);flex-shrink:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div>
+          <div class="modal-title" style="font-size:15px;font-weight:700;">WhatsApp Web Auto-Pilot Runner</div>
+          <div style="font-size:11.5px;color:var(--t3);">100% Ban-Safe Browser Automation Engine</div>
+        </div>
+      </div>
+      <button class="modal-close" id="close-autopilot-modal">&times;</button>
+    </div>
+
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:13px;">
+      <!-- Stats / Config Row -->
+      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;">
+        <div style="background:var(--bg-4);border:1px solid var(--b1);border-radius:var(--r-md);padding:10px 12px;">
+          <div style="font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;">Queued Leads</div>
+          <div id="ap-stat-queue" style="font-size:18px;font-weight:800;color:var(--t1);margin-top:2px;">0</div>
+        </div>
+        <div style="background:var(--bg-4);border:1px solid var(--b1);border-radius:var(--r-md);padding:10px 12px;">
+          <div style="font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;">Sent Safely</div>
+          <div id="ap-stat-sent" style="font-size:18px;font-weight:800;color:var(--green);margin-top:2px;">0</div>
+        </div>
+        <div style="background:var(--bg-4);border:1px solid var(--b1);border-radius:var(--r-md);padding:10px 12px;">
+          <div style="font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;">Pacing Delay</div>
+          <div id="ap-stat-delay" style="font-size:18px;font-weight:800;color:var(--t1);margin-top:2px;">20s</div>
+        </div>
+        <div id="ap-stat-calllist-card" style="background:rgba(234,67,53,0.08);border:1px solid rgba(234,67,53,0.3);border-radius:var(--r-md);padding:10px 12px;cursor:pointer;" title="Click to view non-WhatsApp leads to call manually">
+          <div style="font-size:10.5px;font-weight:700;color:#fca5a5;text-transform:uppercase;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> Call List</div>
+          <div id="ap-stat-calllist" style="font-size:18px;font-weight:800;color:#ef4444;margin-top:2px;">0</div>
+        </div>
+      </div>
+
+      <!-- Settings Dropdown / Config -->
+      <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-3);padding:8px 12px;border-radius:var(--r-md);border:1px solid var(--b1);font-size:12px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="color:var(--t2);">Pacing:</span>
+          <select id="ap-delay-select" class="form-select" style="width:auto;font-size:11.5px;padding:3px 8px;background:var(--bg-4);color:var(--t1);border:1px solid var(--b1);">
+            <option value="15">15s (Fast)</option>
+            <option value="20" selected>20s (Recommended - Safe)</option>
+            <option value="30">30s (Ultra-Safe)</option>
+            <option value="45">45s (Maximum Care)</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="color:var(--t2);">Batch Limit:</span>
+          <select id="ap-batch-select" class="form-select" style="width:auto;font-size:11.5px;padding:3px 8px;background:var(--bg-4);color:var(--t1);border:1px solid var(--b1);">
+            <option value="25" selected>25 contacts</option>
+            <option value="50">50 contacts</option>
+            <option value="100">100 contacts</option>
+            <option value="9999">All selected</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Current Active Lead Card -->
+      <div style="background:var(--bg-3);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-md);padding:14px;position:relative;overflow:hidden;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--green);margin-bottom:5px;display:flex;align-items:center;gap:6px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+          <span id="ap-status-badge">Standing By</span>
+        </div>
+        <div id="ap-current-name" style="font-size:16px;font-weight:800;color:var(--t1);">Ready to Launch</div>
+        <div style="font-size:12px;color:var(--t2);margin-top:2px;display:flex;align-items:center;gap:8px;">
+          <span id="ap-current-phone" class="font-mono">—</span>
+          <span id="ap-current-category" class="badge badge-default" style="font-size:10px;">—</span>
+        </div>
+
+        <!-- Progress Bar & Countdown -->
+        <div style="margin-top:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:5px;">
+            <span id="ap-progress-label">Lead 0 of 0</span>
+            <span id="ap-countdown-label">Idle</span>
+          </div>
+          <div style="height:6px;background:var(--bg-5);border-radius:99px;overflow:hidden;">
+            <div id="ap-progress-bar" style="width:0%;height:100%;background:var(--green);transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Safety & Permissions Notice -->
+      <div style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:6px;background:rgba(0,212,85,0.06);border:1px solid rgba(0,212,85,0.2);border-radius:var(--r-sm);padding:6px 10px;">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+        <span><strong>100% Ban-Proof:</strong> Sends directly through your official WhatsApp Web in Chrome. Please set Chrome to <em>"Always allow pop-ups"</em> for localhost.</span>
+      </div>
+
+      <!-- Pop-up Blocked Fallback Link Box -->
+      <div id="ap-popup-notice" style="display:none;background:rgba(0,212,85,0.12);border:1px solid rgba(0,212,85,0.35);border-radius:var(--r-sm);padding:9px 12px;font-size:12px;color:var(--t1);">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><strong>Auto-Pilot Tab Ready:</strong></span>
+          <a id="ap-direct-wa-link" href="https://web.whatsapp.com" target="WhatsAppAutoPilotTab" class="btn btn-primary btn-xs" style="text-decoration:none;font-weight:700;padding:5px 12px;background:var(--green);color:#111;border-radius:6px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> Switch to WhatsApp Tab
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn btn-primary" id="ap-start-btn" style="flex:1;gap:6px;padding:10px 14px;font-weight:700;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Auto-Pilot
+        </button>
+        <button type="button" class="btn btn-secondary" id="ap-pause-btn" style="display:none;padding:10px 14px;gap:6px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          Pause
+        </button>
+        <button type="button" class="btn btn-secondary" id="ap-skip-btn" style="display:none;padding:10px 14px;">
+          Skip <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-left:4px;"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+        </button>
+        <button type="button" class="btn btn-ghost" id="ap-helper-btn" title="Setup 1-Click Auto-Send Chrome Helper" style="font-size:11.5px;padding:10px 12px;gap:5px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> 1-Click Helper
+        </button>
+      </div>
+
+      <!-- Live Activity Console -->
+      <div style="background:#0e0e0e;border:1px solid var(--b1);border-radius:var(--r-md);padding:9px 11px;max-height:105px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:11px;" id="ap-activity-log">
+        <div style="color:var(--t3);">Auto-Pilot Runner ready. Select contacts and click Start.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════════════════
+     MODAL: NON-WHATSAPP MANUAL CALL LIST
+═════════════════════════════════════════════════════ -->
+<div class="modal-bg modal-backdrop" id="autopilot-calllist-modal">
+  <div class="modal-box" style="max-width:680px;width:95%;">
+    <div class="modal-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(234,67,53,0.15);border:1px solid rgba(234,67,53,0.3);display:flex;align-items:center;justify-content:center;color:#ef4444;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <div>
+          <div class="modal-title" style="font-size:15px;font-weight:700;">Manual Phone Calling List</div>
+          <div style="font-size:11.5px;color:var(--t3);">Leads not registered on WhatsApp — reach out via direct phone call</div>
+        </div>
+      </div>
+      <button class="modal-close" id="close-calllist-modal">&times;</button>
+    </div>
+
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="max-height:360px;overflow-y:auto;border:1px solid var(--b1);border-radius:var(--r-md);background:var(--bg-4);">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;text-align:left;">
+          <thead>
+            <tr style="background:var(--bg-3);border-bottom:1px solid var(--b1);color:var(--t3);font-size:11px;text-transform:uppercase;">
+              <th style="padding:8px 10px;">#</th>
+              <th style="padding:8px 10px;">Prospect / Gym</th>
+              <th style="padding:8px 10px;">Phone Number</th>
+              <th style="padding:8px 10px;">Location</th>
+              <th style="padding:8px 10px;text-align:right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="ap-calllist-tbody">
+            <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--t3);">Loading call list...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:4px;">
+        <button type="button" class="btn btn-primary" id="ap-copy-all-calls-btn" style="gap:6px;font-size:12px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> Copy All Phone Numbers
+        </button>
+        <button type="button" class="btn btn-secondary" id="ap-export-calls-csv-btn" style="gap:6px;font-size:12px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Export Call List CSV
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════════════════════════════════════
+     MODAL: AUTO-PILOT 1-CLICK HELPER SCRIPT
+═════════════════════════════════════════════════════ -->
+<div class="modal-bg modal-backdrop" id="autopilot-helper-modal">
+  <div class="modal-box" style="max-width:540px;">
+    <div class="modal-header">
+      <div class="modal-title" style="font-size:15px;font-weight:700;">1-Click Auto-Send Helper for WhatsApp Web</div>
+      <button class="modal-close" id="close-helper-modal">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex;flex-direction:column;gap:12px;font-size:12.5px;">
+      <p style="color:var(--t2);">
+        To make WhatsApp Web automatically click the green <strong>"Send"</strong> button without you pressing Enter:
+      </p>
+      <div style="background:var(--bg-3);border:1px solid var(--b1);border-radius:var(--r-md);padding:10px 12px;display:flex;flex-direction:column;gap:6px;">
+        <div><strong>Step 1:</strong> Install the free <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" style="color:var(--green);text-decoration:underline;">Tampermonkey Extension</a> in Chrome.</div>
+        <div><strong>Step 2:</strong> In Tampermonkey, click <em>Create a new script</em> and paste the code below:</div>
+      </div>
+      <div style="position:relative;">
+        <textarea id="ap-script-code" readonly style="width:100%;height:140px;background:#0d0d0d;border:1px solid var(--b1);border-radius:var(--r-md);padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#a5b4fc;resize:none;outline:none;"></textarea>
+        <button class="btn btn-primary btn-xs" id="copy-helper-script-btn" style="position:absolute;top:8px;right:8px;">Copy Script</button>
+      </div>
+      <p style="font-size:11.5px;color:var(--t3);margin-top:2px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path></svg> <em>Note: Even without this helper, the Auto-Pilot will still load each lead's chat with the text pre-filled! You just press Enter in WhatsApp and it automatically moves to the next lead after the countdown.</em>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+window.openAutoPilot = function(resume = true) {
+  console.log('[Global] openAutoPilot clicked! resume =', resume);
+  try {
+    if (window.app?.autopilot) {
+      window.app.autopilot.openModal(resume);
+    } else {
+      const modal = document.getElementById('autopilot-modal');
+      if (modal) modal.classList.add('open');
+    }
+  } catch(err) {
+    console.error('[Global] openAutoPilot error:', err);
+    const modal = document.getElementById('autopilot-modal');
+    if (modal) modal.classList.add('open');
+  }
+};
+</script>
+<script type="module" src="js/app.js"></script>
+
+<!-- Ultra-Smooth Liquid Water Interaction Engine (Hardware-Accelerated, Zero-Lag) -->
+<script>
+(function() {
+  const WATER_SELECTORS = '.nav-link, .btn, .status-tab, .composer-cat-chip, .tab-pill, .wa-session-card, .mini-stat, .stat-card, .safeguard-card';
+
+  let currentTarget = null;
+  let targetRect = null;
+  let rafPending = false;
+  let lastX = 0, lastY = 0;
+
+  // Single delegated pointerover: cache rect once on hover
+  document.addEventListener('pointerover', (e) => {
+    const target = e.target.closest(WATER_SELECTORS);
+    if (target) {
+      currentTarget = target;
+      targetRect = target.getBoundingClientRect();
+    } else {
+      currentTarget = null;
+      targetRect = null;
+    }
+  }, { passive: true });
+
+  // Single delegated pointermove: throttled to 60/120fps via requestAnimationFrame
+  document.addEventListener('pointermove', (e) => {
+    if (!currentTarget) return;
+    lastX = e.clientX;
+    lastY = e.clientY;
+
+    if (!rafPending) {
+      rafPending = true;
+      requestAnimationFrame(() => {
+        rafPending = false;
+        if (!currentTarget || !targetRect) return;
+        const width = targetRect.width || 1;
+        const height = targetRect.height || 1;
+        const x = Math.max(0, Math.min(100, ((lastX - targetRect.left) / width) * 100));
+        const y = Math.max(0, Math.min(100, ((lastY - targetRect.top) / height) * 100));
+        currentTarget.style.setProperty('--mx', x.toFixed(1) + '%');
+        currentTarget.style.setProperty('--my', y.toFixed(1) + '%');
+      });
+    }
+  }, { passive: true });
+
+  // Update rect on scroll/resize without layout thrashing
+  window.addEventListener('scroll', () => {
+    if (currentTarget) targetRect = currentTarget.getBoundingClientRect();
+  }, { passive: true, capture: true });
+
+  // Single delegated ripple spawn on click
+  document.addEventListener('pointerdown', (e) => {
+    const el = e.target.closest(WATER_SELECTORS);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple-ring';
+    ripple.style.left = (e.clientX - rect.left) + 'px';
+    ripple.style.top  = (e.clientY - rect.top)  + 'px';
+    el.appendChild(ripple);
+    setTimeout(() => { ripple.remove(); }, 500);
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
+

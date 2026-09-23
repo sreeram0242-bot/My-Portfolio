@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <meta name="viewport" content="width=1280, initial-scale=0.3, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes">
+  <link rel="stylesheet" href="../shared/pc-desktop-mode.css">
+  <script src="../shared/pc-desktop-mode.js"></script>
+    <title>SpotiZip — Minimal Spotify Playlist Downloader</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <script>
+    (function() {
+      const mockPlaylist = {
+        name: "Ipop",
+        track_count: 16,
+        duration_ms: 3120000,
+        cover_url: "ipop-cover.png",
+        tracks: [
+          { id: "t1", name: "Bodha Kannadi", artist: "Hemi, Sathyaprakash", duration: "2:54", status: "Queued" },
+          { id: "t2", name: "Keralanaadu", artist: "Priya Jerson, Vijaynarain, Sathyaprakash", duration: "3:03", status: "Queued" },
+          { id: "t3", name: "Tomato Thakkali - From \"Parimala and Co\"", artist: "foxn, Anthony Daasan, Varma", duration: "2:02", status: "Queued" },
+          { id: "t4", name: "Alaakaa Loova (From \"OM Chapter 1: Udhiram - The Blood Wood\") [Tamil]", artist: "Sai Abhyankkar, Rokesh", duration: "3:30", status: "Queued" },
+          { id: "t5", name: "ICEBOY", artist: "Asal Kolaar, SHIV PAUL", duration: "3:14", status: "Queued" },
+          { id: "t6", name: "Kadaya Saathu", artist: "ofRO, Vaasi", duration: "2:39", status: "Queued" },
+          { id: "t7", name: "Jalabulanjangu", artist: "Anirudh Ravichander", duration: "3:18", status: "Queued" },
+          { id: "t8", name: "Chilla Chilla", artist: "Ghibran, Anirudh", duration: "3:45", status: "Queued" },
+          { id: "t9", name: "Ranjithame", artist: "Thalapathy Vijay, M.M. Manasi", duration: "4:48", status: "Queued" },
+          { id: "t10", name: "Arabic Kuthu - Halamithi Habibo", artist: "Anirudh Ravichander, Jonita Gandhi", duration: "4:40", status: "Queued" },
+          { id: "t11", name: "Kaathuvaakula Rendu Kaadhal", artist: "Anirudh Ravichander", duration: "4:02", status: "Queued" },
+          { id: "t12", name: "Dippam Dappam", artist: "Anthony Daasan, Anirudh Ravichander", duration: "3:37", status: "Queued" },
+          { id: "t13", name: "Beast Mode", artist: "Anirudh Ravichander", duration: "3:40", status: "Queued" },
+          { id: "t14", name: "Naa Ready", artist: "Thalapathy Vijay, Anirudh Ravichander", duration: "4:08", status: "Queued" },
+          { id: "t15", name: "Badass", artist: "Anirudh Ravichander", duration: "3:49", status: "Queued" },
+          { id: "t16", name: "Hukum - Thalaivar Alappara", artist: "Anirudh Ravichander", duration: "3:27", status: "Queued" }
+        ]", artist: "Sai Abhyankkar, Rokesh", duration: "3:30", status: "Queued" },
+          { id: "t5", name: "ICEBOY", artist: "Asal Kolaar, SHIV PAUL", duration: "3:14", status: "Queued" },
+          { id: "t6", name: "Kadaya Saathu", artist: "ofRO, Vaasi", duration: "2:39", status: "Queued" },
+          { id: "t7", name: "Jalabulanjangu", artist: "Anirudh Ravichander", duration: "3:18", status: "Queued" },
+          { id: "t8", name: "Chilla Chilla", artist: "Ghibran, Anirudh", duration: "3:45", status: "Queued" }
+        ]
+      };
+
+      let downloadJob = { status: "processing", progress: 10, current_track: "Bodha Kannadi", total: 16, completed: 1 };
+
+      const origFetch = window.fetch;
+      window.fetch = async function(url, options = {}) {
+        const u = typeof url === 'string' ? url : url.url;
+        if (u.includes('/api/playlist/info')) {
+          return new Response(JSON.stringify({ success: true, playlist: mockPlaylist }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        if (u.includes('/api/download/start')) {
+          downloadJob.progress = 15;
+          downloadJob.status = "processing";
+          return new Response(JSON.stringify({ success: true, job_id: "demo-job-123" }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        if (u.includes('/api/download/status/')) {
+          downloadJob.progress = Math.min(100, downloadJob.progress + 25);
+          if (downloadJob.progress >= 100) {
+            downloadJob.status = "completed";
+          }
+          return new Response(JSON.stringify({
+            success: true,
+            progress: downloadJob.progress,
+            status: downloadJob.status,
+            completed_tracks: Math.floor((downloadJob.progress / 100) * 16),
+            total_tracks: 16
+          }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
+        if (u.includes('/api/download/file/')) {
+          const dummyBlob = new Blob(["Spotdown Simulated ZIP Payload"], { type: "application/zip" });
+          return new Response(dummyBlob, { status: 200, headers: { 'Content-Type': 'application/zip' } });
+        }
+        return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+      };
+    })();
+  </script>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      #090c13;
+      --banner-match-border:  rgba(255,255,255,0.12);
+      --banner-match-text:    #F1F5F9;
+      --banner-match-btn-bg:  #151D28;
+    }
+    .demo-top-banner {
+      background: var(--banner-match-bg, #090c13) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-title-pill, .demo-title-pill strong {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-repo-link {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+  </style>
+</head>
+<body>
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>Spotdown &bull; One-Click Spotify Archiver</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/Spotdown" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+    <div class="ambient-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="ri-spotify-fill"></i>
+                </div>
+                <span class="brand-name">Spoti<span class="highlight">Zip</span></span>
+                <span class="badge-tag">v1.0</span>
+            </div>
+            <div class="system-status" id="systemStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Server Online</span>
+            </div>
+        </header>
+
+        <!-- Main Hero Section -->
+        <main class="content-area">
+            <div class="hero-section">
+                <h1 class="hero-title">Download Any Playlist as <span class="gradient-text">ZIP</span></h1>
+                <p class="hero-subtitle">Paste your Spotify playlist URL below to convert & pack all tracks into a clean, tagged ZIP archive.</p>
+
+                <!-- URL Input Bar -->
+                <div class="url-card glass-panel">
+                    <div class="input-wrapper">
+                        <i class="ri-link input-icon"></i>
+                        <input type="url" id="playlistUrl" placeholder="https://open.spotify.com/playlist/..." autocomplete="off">
+                        <button type="button" class="btn-clear" id="btnClear" title="Clear input" style="display: none;">
+                            <i class="ri-close-line"></i>
+                        </button>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="btnPaste" class="btn-secondary">
+                            <i class="ri-clipboard-line"></i> Paste
+                        </button>
+                        <button id="btnFetch" class="btn-primary">
+                            <span class="btn-text">Fetch Tracks</span>
+                            <i class="ri-arrow-right-line btn-icon"></i>
+                            <div class="spinner hidden" id="fetchSpinner"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error Notification Banner -->
+                <div class="error-banner hidden" id="errorBanner">
+                    <i class="ri-error-warning-fill"></i>
+                    <span id="errorMessage">An error occurred while fetching the playlist.</span>
+                    <button class="btn-close-error" id="btnCloseError"><i class="ri-close-line"></i></button>
+                </div>
+            </div>
+
+            <!-- Playlist & Download Container (Initially Hidden) -->
+            <div class="dashboard-grid hidden" id="dashboardGrid">
+                
+                <!-- Playlist Metadata Card -->
+                <div class="playlist-meta-card glass-panel">
+                    <div class="meta-cover-container">
+                        <img id="playlistCover" src="" alt="Playlist Cover" class="meta-cover">
+                        <div class="cover-overlay">
+                            <i class="ri-music-2-fill"></i>
+                        </div>
+                    </div>
+
+                    <div class="meta-details">
+                        <div class="meta-header">
+                            <span class="meta-type-chip"><i class="ri-playlist-line"></i> Spotify Playlist</span>
+                            <h2 class="playlist-title" id="playlistTitle">Playlist Title</h2>
+                        </div>
+
+                        <div class="meta-stats">
+                            <div class="stat-item">
+                                <i class="ri-disc-line"></i>
+                                <span id="trackCount">0 Tracks</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="ri-time-line"></i>
+                                <span id="totalDuration">~ min</span>
+                            </div>
+                        </div>
+
+                        <!-- Settings & Path Configuration -->
+                        <div class="config-section">
+                            <div class="config-row">
+                                <label class="config-label"><i class="ri-equalizer-line"></i> Quality</label>
+                                <div class="segmented-control">
+                                    <button class="segment active" data-quality="128k" title="Compact MP3 (~3MB/song) - Fastest download & 3x smaller ZIP">128k (Compact ~3MB/song)</button>
+                                    <button class="segment" data-quality="192k" title="Balanced MP3 (~4.5MB/song)">192k (Balanced)</button>
+                                    <button class="segment" data-quality="320k" title="High Quality MP3 (~9.5MB/song)">320k (HQ ~9.5MB)</button>
+                                </div>
+                            </div>
+
+                            <div class="config-row">
+                                <label class="config-label"><i class="ri-folder-download-line"></i> Save Location</label>
+                                <div class="path-input-group">
+                                    <input type="text" id="customSavePath" placeholder="Default: Browser Downloads folder" title="Enter optional local PC directory path">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Action Button -->
+                        <div class="download-action-group">
+                            <button id="btnStartDownload" class="btn-download-main">
+                                <i class="ri-file-zip-line"></i>
+                                <span class="btn-text">Download All as ZIP</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Progress & Track List Container -->
+                <div class="tracks-card glass-panel">
+                    <div class="tracks-header">
+                        <div class="tracks-title-group">
+                            <h3>Playlist Songs</h3>
+                            <span class="tracks-count-badge" id="tracksBadge">0 songs</span>
+                        </div>
+                        <div class="overall-status-chip" id="overallStatusChip">
+                            <span class="chip-dot"></span>
+                            <span id="overallStatusText">Ready</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar (Visible during active job) -->
+                    <div class="progress-container hidden" id="progressContainer">
+                        <div class="progress-info">
+                            <span class="current-task-text" id="currentTaskText">Downloading tracks...</span>
+                            <span class="percent-text" id="percentText">0%</span>
+                        </div>
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="progressBarFill"></div>
+                        </div>
+                        <div class="download-subtext" id="downloadSubtext">
+                            <span id="downloadedCount">0</span> of <span id="totalDownloadCount">0</span> tracks finished
+                        </div>
+                    </div>
+
+                    <!-- Track Table -->
+                    <div class="track-list-wrapper">
+                        <table class="track-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Track</th>
+                                    <th>Artist</th>
+                                    <th>Duration</th>
+                                    <th style="text-align: right;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trackListBody">
+                                <!-- Track Rows Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Completion Action Bar (Visible when ZIP is ready) -->
+                    <div class="completion-box hidden" id="completionBox">
+                        <div class="completion-icon">
+                            <i class="ri-checkbox-circle-fill"></i>
+                        </div>
+                        <div class="completion-details">
+                            <h4>ZIP Archive Ready!</h4>
+                            <p id="completionMessage">Your songs have been bundled into a ZIP file.</p>
+                        </div>
+                        <div class="completion-actions">
+                            <a id="btnDirectDownload" href="#" class="btn-secondary-action">
+                                <i class="ri-download-2-line"></i> Direct Save ZIP
+                            </a>
+                            <button id="btnSaveToCustom" class="btn-primary-action">
+                                <i class="ri-folder-shared-line"></i> Save to Specified Path
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>SpotiZip &copy; 2026 — Runs completely in the background on your PC.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

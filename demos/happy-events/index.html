@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Events — Luxury South Indian Event Planners</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: #EFECE6;
+      color: #1F2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Mobile container centered on desktop */
+    .happy-phone {
+      max-width: 440px;
+      margin: 1.5rem auto 3rem;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #D8D2C5;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* On actual mobile phones: remove decorative phone frame, go full screen */
+    @media (max-width: 540px) {
+      body {
+        background: #FFFFFF;
+        min-height: 100dvh;
+      }
+      .happy-phone {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        min-height: 100dvh;
+        flex: 1;
+      }
+    }
+
+    /* Hero Section */
+    .hero-wrap {
+      position: relative;
+      background: linear-gradient(180deg, rgba(13, 43, 32, 0.4) 0%, rgba(13, 43, 32, 0.88) 100%),
+                  url('assets/hero-wedding.png') center/cover no-repeat;
+      padding: 1.25rem 1.25rem 2.25rem;
+      color: #FFFFFF;
+    }
+    .hero-top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.25rem;
+    }
+    .he-logo-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .he-logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #FFFFFF;
+      border: 1.5px solid #C9A227;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .he-brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #E8C15A;
+      letter-spacing: 0.02em;
+    }
+    .he-burger {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .hero-title-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.12;
+      margin-bottom: 0.85rem;
+    }
+    .hero-title-cream {
+      color: #FAF6F0;
+      display: block;
+    }
+    .hero-title-gold {
+      color: #C9A227;
+      display: block;
+      margin-top: 0.2rem;
+    }
+    .gold-divider-diamond {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .gold-line {
+      width: 48px;
+      height: 1.5px;
+      background: #C9A227;
+    }
+    .gold-diamond {
+      color: #C9A227;
+      font-size: 0.75rem;
+      line-height: 1;
+    }
+    .hero-desc {
+      font-size: 0.84rem;
+      color: rgba(250, 246, 240, 0.9);
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+      max-width: 320px;
+    }
+    .btn-plan-event {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #C9A227;
+      color: #0D2B20;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 14px rgba(201, 162, 39, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-plan-event:hover {
+      background: #D9B338;
+      transform: translateY(-1px);
+    }
+
+    /* Gold Ribbon */
+    .gold-ribbon {
+      background: #C9A227;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 0.75rem 0.35rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(201, 162, 39, 0.2);
+    }
+    .ribbon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .ribbon-col:hover {
+      transform: scale(1.05);
+    }
+    .ribbon-icon {
+      color: #0D2B20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ribbon-label {
+      font-size: 0.64rem;
+      font-weight: 800;
+      color: #0D2B20;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+    }
+
+    /* Content Area */
+    .happy-body {
+      padding: 1.5rem 1.1rem;
+      background: #FAF8F5;
+    }
+    .section-eyebrow {
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #C9A227;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .section-serif-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #0D2B20;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Moments Carousel */
+    .carousel-wrap {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .carousel-row {
+      display: flex;
+      gap: 0.85rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.4rem;
+      scrollbar-width: none;
+    }
+    .carousel-row::-webkit-scrollbar {
+      display: none;
+    }
+    .carousel-card {
+      width: 270px;
+      height: 185px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      cursor: pointer;
+    }
+    .card-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .carousel-card:hover .card-bg-img {
+      transform: scale(1.05);
+    }
+    .card-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(13, 43, 32, 0.9) 100%);
+    }
+    .card-label-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      color: #FAF6F0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    .nav-arrow-circle {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #FAF6F0;
+      color: #0D2B20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 5;
+      transition: background 0.15s ease;
+    }
+    .nav-arrow-circle:hover {
+      background: #C9A227;
+      color: #FFFFFF;
+    }
+    .nav-arrow-left { left: 10px; }
+    .nav-arrow-right { right: 10px; }
+
+    /* Green Stats Pill */
+    .green-stats-pill {
+      background: #0D2B20;
+      border-radius: 18px;
+      padding: 1.1rem 0.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(13, 43, 32, 0.3);
+      margin-bottom: 2rem;
+    }
+    .stat-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0 0.25rem;
+    }
+    .stat-col:not(:last-child) {
+      border-right: 1px solid rgba(250, 246, 240, 0.15);
+    }
+    .stat-icon {
+      color: #C9A227;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-num-gold {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FAF6F0;
+      line-height: 1;
+    }
+    .stat-label-mini {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: rgba(250, 246, 240, 0.75);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    /* What We Do */
+    .expertise-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(201, 162, 39, 0.3);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      margin-bottom: 1.5rem;
+    }
+    .exp-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+      padding-bottom: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .exp-icon-circ {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(13, 43, 32, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0D2B20;
+      flex-shrink: 0;
+    }
+    .exp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0D2B20;
+    }
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .exp-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: #374151;
+      line-height: 1.4;
+    }
+    .exp-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #C9A227;
+      margin-top: 0.38rem;
+      flex-shrink: 0;
+    }
+
+    /* Plan Dialog Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .dialog-box {
+      background: #FFFFFF;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .dialog-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6B7280;
+    }
+    .dialog-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #0D2B20;
+      margin-bottom: 0.25rem;
+    }
+    .dialog-subtitle {
+      font-size: 0.8rem;
+      color: #6B7280;
+      margin-bottom: 1.25rem;
+    }
+    .dialog-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .dialog-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dialog-input, .dialog-select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .dialog-submit {
+      margin-top: 0.5rem;
+      background: #C9A227;
+      color: #0D2B20;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  </style>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      rgba(239,236,230,0.97);
+      --banner-match-border:  rgba(222,211,200,0.8);
+      --banner-match-text:    #1F2937;
+      --banner-match-btn-bg:  #F8F3ED;
+    }
+    .demo-top-banner {
+      background: #EFECE6 !important;
+      background: var(--banner-match-bg, #EFECE6) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn,
+    .demo-repo-link {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Universal Demo Top Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>HappyEvents &bull; Moments We've Crafted</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/HappyEvents" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Mobile Screen Shell -->
+  <div class="happy-phone">
+
+    <!-- Hero Section -->
+    <div class="hero-wrap">
+      <div class="hero-top-nav">
+        <div class="he-logo-pill">
+          <img src="assets/logo.png" alt="Happy Events" class="he-logo-img">
+          <span class="he-brand-title">Happy Events</span>
+        </div>
+        <button class="he-burger" aria-label="Menu" onclick="openPlanDialog('General Event')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="hero-title-main">
+        <span class="hero-title-cream">You Dream It</span>
+        <span class="hero-title-gold">We Plan It</span>
+      </div>
+
+      <div class="gold-divider-diamond">
+        <div class="gold-line"></div>
+        <span class="gold-diamond">◆</span>
+        <div class="gold-line"></div>
+      </div>
+
+      <p class="hero-desc">
+        From elegant celebrations to grand corporate events &mdash; we bring your vision to life.
+      </p>
+
+      <button class="btn-plan-event" onclick="openPlanDialog('Wedding')">
+        <span>PLAN YOUR EVENT</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      </button>
+    </div>
+
+    <!-- Gold Ribbon Bar -->
+    <div class="gold-ribbon">
+      <div class="ribbon-col" onclick="openPlanDialog('Wedding')">
+        <div class="ribbon-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+        <span class="ribbon-label">WEDDINGS</span>
+      </div>
+      <div class="ribbon-col" onclick="openPlanDialog('College Fest')">
+        <div class="ribbon-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <span class="ribbon-label">COLLEGE<br>EVENTS</span>
+      </div>
+      <div class="ribbon-col" onclick="openPlanDialog('Birthday')">
+        <div class="ribbon-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 22h8M12 11v11M12 7a4 4 0 0 0-4-4H7a4 4 0 0 0 4 4zM12 7a4 4 0 0 1 4-4h1a4 4 0 0 1-4 4z"></path></svg>
+        </div>
+        <span class="ribbon-label">BIRTHDAYS</span>
+      </div>
+      <div class="ribbon-col" onclick="openPlanDialog('Celebration')">
+        <div class="ribbon-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        </div>
+        <span class="ribbon-label">ALL<br>CELEBRATIONS</span>
+      </div>
+    </div>
+
+    <!-- Content Body -->
+    <div class="happy-body">
+      <div class="section-eyebrow">✦ OUR SERVICE ✦</div>
+      <h2 class="section-serif-title">Moments We've Crafted</h2>
+
+      <div class="carousel-wrap">
+        <div class="carousel-row" id="moments-carousel">
+          <!-- Birthday Card -->
+          <div class="carousel-card" onclick="openPlanDialog('Birthday Party')">
+            <img src="assets/cat-birthday.jpg" class="card-bg-img" alt="Birthday Party">
+            <div class="card-gradient-overlay"></div>
+            <span class="card-label-badge">Birthday Party</span>
+          </div>
+
+          <!-- Marriage Card -->
+          <div class="carousel-card" onclick="openPlanDialog('Marriage')">
+            <img src="assets/cat-marriage.jpg" class="card-bg-img" alt="Marriage">
+            <div class="card-gradient-overlay"></div>
+            <span class="card-label-badge">Marriage</span>
+          </div>
+
+          <!-- College Events -->
+          <div class="carousel-card" onclick="openPlanDialog('College Fest')">
+            <img src="assets/cat-college.jpg" class="card-bg-img" alt="College Events">
+            <div class="card-gradient-overlay"></div>
+            <span class="card-label-badge">College Events</span>
+          </div>
+
+          <!-- School Events -->
+          <div class="carousel-card" onclick="openPlanDialog('School Event')">
+            <img src="assets/south-indian-school.png" class="card-bg-img" alt="School Events">
+            <div class="card-gradient-overlay"></div>
+            <span class="card-label-badge">School Events</span>
+          </div>
+        </div>
+
+        <button class="nav-arrow-circle nav-arrow-left" onclick="scrollCarousel(-200)" aria-label="Previous">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="nav-arrow-circle nav-arrow-right" onclick="scrollCarousel(200)" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Green Stats Pill -->
+      <div class="green-stats-pill">
+        <div class="stat-col">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="stat-num-gold">150+</div>
+          <div class="stat-label-mini">HAPPY CLIENTS</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+          </div>
+          <div class="stat-num-gold">10+</div>
+          <div class="stat-label-mini">YEARS EXP</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+          </div>
+          <div class="stat-num-gold">100%</div>
+          <div class="stat-label-mini">SATISFACTION</div>
+        </div>
+        <div class="stat-col">
+          <div class="stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <div class="stat-num-gold">On-Time</div>
+          <div class="stat-label-mini">DELIVERY</div>
+        </div>
+      </div>
+
+      <!-- What We Do -->
+      <div class="section-eyebrow">✦ WHAT WE DO ✦</div>
+      <h2 class="section-serif-title">Our Expertise Across All Events</h2>
+
+      <div class="expertise-card">
+        <div class="exp-header">
+          <div class="exp-icon-circ">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+          </div>
+          <h3 class="exp-title">Social &amp; Family Milestone</h3>
+        </div>
+        <ul class="exp-list">
+          <li class="exp-item"><span class="exp-dot"></span><span>Premium Authentic Catering &amp; Traditional Feast Banquets</span></li>
+          <li class="exp-item"><span class="exp-dot"></span><span>Weddings &amp; Pre-Wedding Rituals (Haldi, Mehendi, Sangeet, Reception)</span></li>
+          <li class="exp-item"><span class="exp-dot"></span><span>Milestone Birthday Parties &amp; Grand Mandap Floral Decorations</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive Event Planning Dialog Modal -->
+  <div class="modal-backdrop" id="plan-dialog">
+    <div class="dialog-box">
+      <button class="dialog-close" onclick="closePlanDialog()" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <h3 class="dialog-title">Plan Your Event</h3>
+      <p class="dialog-subtitle">Tell us about your celebration. We craft memories that last a lifetime.</p>
+      
+      <form class="dialog-form" onsubmit="handlePlanSubmit(event)">
+        <div>
+          <label class="dialog-label">Event Type</label>
+          <select class="dialog-select" id="event-type-select">
+            <option value="Wedding">Traditional Wedding &amp; Mandap</option>
+            <option value="Birthday Party">Birthday Gala &amp; Theming</option>
+            <option value="College Fest">College Cultural Fest / DJ</option>
+            <option value="School Event">School Annual Day</option>
+            <option value="Corporate">Corporate Conference &amp; Banquet</option>
+          </select>
+        </div>
+        <div>
+          <label class="dialog-label">Estimated Guest Count</label>
+          <select class="dialog-select">
+            <option>50 - 150 Guests (Intimate)</option>
+            <option selected>150 - 500 Guests (Grand)</option>
+            <option>500 - 1500+ Guests (Royal)</option>
+          </select>
+        </div>
+        <div>
+          <label class="dialog-label">Preferred Date</label>
+          <input type="date" class="dialog-input" value="2026-10-15">
+        </div>
+        <div>
+          <label class="dialog-label">Your Phone Number</label>
+          <input type="tel" class="dialog-input" placeholder="+91 98401 23456" value="+91 96296 61668">
+        </div>
+        <button type="submit" class="dialog-submit">Reserve Event Consultation</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function scrollCarousel(offset) {
+      const el = document.getElementById('moments-carousel');
+      if (el) el.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+
+    function openPlanDialog(type) {
+      const dlg = document.getElementById('plan-dialog');
+      const sel = document.getElementById('event-type-select');
+      if (sel && type) {
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value.toLowerCase().includes(type.toLowerCase())) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      if (dlg) dlg.classList.add('open');
+    }
+
+    function closePlanDialog() {
+      const dlg = document.getElementById('plan-dialog');
+      if (dlg) dlg.classList.remove('open');
+    }
+
+    function handlePlanSubmit(e) {
+      e.preventDefault();
+      alert('Event consultation request recorded!
+Our senior event coordinator will call you within 2 business hours.');
+      closePlanDialog();
+    }
+  </script>
+</body>
+</html>

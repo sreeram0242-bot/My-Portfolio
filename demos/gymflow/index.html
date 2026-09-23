@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.3, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes">
+  <link rel="stylesheet" href="../shared/pc-desktop-mode.css">
+  <script src="../shared/pc-desktop-mode.js"></script>
+  <title>GymFlow — Gym Admin Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: #F8FAFC;
+      color: #1E293B;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gym-layout {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Left Sidebar */
+    .gym-sidebar {
+      width: 240px;
+      background: #FFFFFF;
+      border-right: 1px solid #E2E8F0;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .gym-brand-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .gym-logo-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #1E3A8A;
+      font-size: 0.8rem;
+    }
+    .gym-brand-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .gym-brand-sub {
+      font-size: 0.72rem;
+      color: #64748B;
+    }
+
+    .portal-box {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .portal-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .portal-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .portal-dot {
+      width: 7px;
+      height: 7px;
+      background: #10B981;
+      border-radius: 50%;
+    }
+    .portal-owner-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: #64748B;
+      margin-top: 0.35rem;
+    }
+    .portal-code {
+      color: #1E3A8A;
+      font-weight: 600;
+    }
+
+    .gym-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+    }
+    .gym-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .gym-nav-item:hover {
+      background: #F1F5F9;
+      color: #0F172A;
+    }
+    .gym-nav-item.active {
+      background: #1E3A8A;
+      color: #FFFFFF;
+    }
+
+    .gym-logout {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #EF4444;
+      cursor: pointer;
+      padding: 0.5rem 0.85rem;
+      margin-top: auto;
+    }
+
+    /* Main Area */
+    .gym-main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+    }
+    .gym-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .studio-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      color: #64748B;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .welcome-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+    .welcome-sub {
+      font-size: 0.86rem;
+      color: #64748B;
+      margin-top: 0.25rem;
+    }
+    .btn-nfc-terminal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1E3A8A;
+      color: #FFFFFF;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s ease;
+    }
+    .btn-nfc-terminal:hover {
+      background: #1E40AF;
+    }
+
+    /* 4 Stat Cards */
+    .stat-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .gym-stat-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      position: relative;
+    }
+    .stat-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label-text {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #64748B;
+      letter-spacing: 0.04em;
+    }
+    .stat-icon-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-main-number {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #0F172A;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .stat-sub-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #10B981;
+      background: #ECFDF5;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+    .stat-foot-link {
+      font-size: 0.76rem;
+      color: #1E3A8A;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      display: block;
+      text-decoration: none;
+    }
+    .stat-foot-muted {
+      font-size: 0.74rem;
+      color: #64748B;
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* Quick Actions */
+    .quick-actions-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .qa-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #94A3B8;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.85rem;
+    }
+    .qa-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .qa-btn {
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .qa-btn-blue {
+      background: #1E3A8A;
+      color: #FFFFFF;
+      border: none;
+    }
+    .qa-btn-blue:hover { background: #1E40AF; }
+    .qa-btn-outline {
+      background: #EFF6FF;
+      color: #1E3A8A;
+      border: 1px solid #BFDBFE;
+    }
+    .qa-btn-orange {
+      background: #FEF3C7;
+      color: #D97706;
+      border: 1px solid #FDE68A;
+    }
+    .qa-btn-gray {
+      background: #FFFFFF;
+      color: #334155;
+      border: 1px solid #E2E8F0;
+    }
+
+    /* Bottom Two Columns */
+    .bottom-split {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1.25rem;
+    }
+    .feed-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    .feed-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .feed-sub {
+      font-size: 0.75rem;
+      color: #64748B;
+      margin-bottom: 1rem;
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #F1F5F9;
+      background: #F8FAFC;
+    }
+    .item-user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .avatar-circ {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #1E3A8A;
+      font-size: 0.85rem;
+    }
+    .avatar-circ.green {
+      background: #D1FAE5;
+      color: #059669;
+    }
+    .name-text {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .phone-text {
+      font-size: 0.72rem;
+      color: #64748B;
+    }
+    .time-col {
+      text-align: right;
+      font-size: 0.74rem;
+    }
+    .in-time {
+      color: #0F172A;
+      font-weight: 600;
+    }
+    .out-time {
+      color: #64748B;
+      font-size: 0.7rem;
+    }
+    .badge-inside {
+      background: #ECFDF5;
+      color: #059669;
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 0.15rem;
+    }
+
+    /* Right Due Card */
+    .due-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .due-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .due-center-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .circle-check {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid #10B981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10B981;
+      font-size: 1.3rem;
+      margin-bottom: 0.85rem;
+    }
+  </style>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      rgba(248,250,252,0.97);
+      --banner-match-border:  rgba(226,232,240,0.9);
+      --banner-match-text:    #1E293B;
+      --banner-match-btn-bg:  #F1F5F9;
+    }
+    .demo-top-banner {
+      background: #F8FAFC !important;
+      background: var(--banner-match-bg, #F8FAFC) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn,
+    .demo-repo-link {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Universal Demo Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>GymFlow Biometric Suite &bull; Gym Admin Portal</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/Gym-Software" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="gym-layout">
+    <!-- Left Sidebar -->
+    <aside class="gym-sidebar">
+      <div class="gym-brand-row">
+        <div class="gym-logo-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><path d="M6 5v14M18 5v14M2 9v6M22 9v6M6 12h12"></path></svg></div>
+        <div>
+          <div class="gym-brand-name">GymFlow</div>
+          <div class="gym-brand-sub">Gym Admin</div>
+        </div>
+      </div>
+
+      <div class="portal-box">
+        <div class="portal-label">ACTIVE GYM PORTAL</div>
+        <div class="portal-name-row">
+          <span>Elite Fitness Studio</span>
+          <span class="portal-dot"></span>
+        </div>
+        <div class="portal-owner-row">
+          <span>Owner: Raj Kumar</span>
+          <span class="portal-code">elitefitness</span>
+        </div>
+      </div>
+
+      <div class="gym-nav">
+        <div class="gym-nav-item active"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Overview</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>Check-in Terminal</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Members</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Staffs</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>Reminders</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>Broadcast</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>Revenue</div>
+        <div class="gym-nav-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>Settings</div>
+      </div>
+
+      <div class="gym-logout"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:6px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Secure Logout</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="gym-main">
+      <div class="gym-top-header">
+        <div>
+          <div class="studio-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" style="vertical-align:middle;display:inline-block;margin-right:4px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Elite Fitness Studio</div>
+          <h1 class="welcome-title">Welcome Back, Raj Kumar!</h1>
+          <p class="welcome-sub">Here is your gym's live check-in feed and financial summary for today.</p>
+        </div>
+        <button class="btn-nfc-terminal" onclick="alert('NFC Reader Active!\nTap smartphone or RFID card to scan attendance.')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>Open NFC Terminal</button>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-cards-grid">
+        <div class="gym-stat-card">
+          <div class="stat-top-row">
+            <span class="stat-label-text">TOTAL MEMBERS</span>
+            <div class="stat-icon-circle" style="background:#EFF6FF; color:#1E3A8A;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+          </div>
+          <div class="stat-main-number">94</div>
+          <a href="#" class="stat-foot-link">Manage All Members &gt;</a>
+        </div>
+
+        <div class="gym-stat-card">
+          <div class="stat-top-row">
+            <span class="stat-label-text">TODAY CHECK-INS</span>
+            <div class="stat-icon-circle" style="background:#ECFDF5; color:#059669;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+          </div>
+          <div class="stat-main-number">
+            29
+            <span class="stat-sub-badge">2 In Gym</span>
+          </div>
+          <span class="stat-foot-muted">Real-time NFC &amp; Phone check-ins</span>
+        </div>
+
+        <div class="gym-stat-card">
+          <div class="stat-top-row">
+            <span class="stat-label-text">PAYMENT DUES</span>
+            <div class="stat-icon-circle" style="background:#FEF3C7; color:#D97706;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+          </div>
+          <div class="stat-main-number">0</div>
+          <a href="#" class="stat-foot-link" style="color:#D97706;">Send WhatsApp Reminders &gt;</a>
+        </div>
+
+        <div class="gym-stat-card">
+          <div class="stat-top-row">
+            <span class="stat-label-text">TODAY'S COLLECTION</span>
+            <div class="stat-icon-circle" style="background:#EFF6FF; color:#1E3A8A;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
+          </div>
+          <div class="stat-main-number" style="font-family:'JetBrains Mono';">&#8377;2,000</div>
+          <a href="#" class="stat-foot-link">View Profit Analytics</a>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions-card">
+        <div class="qa-label">QUICK ACTIONS</div>
+        <div class="qa-buttons-grid">
+          <button class="qa-btn qa-btn-blue" onclick="addNewMember()">+ Add Member</button>
+          <button class="qa-btn qa-btn-outline" onclick="simulatePunch()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>NFC Check-in</button>
+          <button class="qa-btn qa-btn-orange" onclick="alert('WhatsApp Dues Alerts sent to all pending members!')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:8px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>Send Dues Alert</button>
+          <button class="qa-btn qa-btn-gray" onclick="alert('Expense entry saved to local Prisma DB')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>Record Expense</button>
+        </div>
+      </div>
+
+      <!-- Bottom Split -->
+      <div class="bottom-split">
+        <!-- Live Check-in Feed -->
+        <div class="feed-card">
+          <div class="feed-header">
+            <div class="feed-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Today's Check-In Activity (29)</div>
+            <a href="#" style="font-size:0.75rem; color:#1E3A8A; font-weight:700; text-decoration:none;">Launch Terminal &gt;</a>
+          </div>
+          <div class="feed-sub">Live attendance stream via NFC tap and biometric scans</div>
+
+          <div class="activity-list" id="activity-list">
+            <div class="activity-item">
+              <div class="item-user">
+                <div class="avatar-circ">B</div>
+                <div>
+                  <div class="name-text">B.priya</div>
+                  <div class="phone-text">Phone: 9688517071</div>
+                </div>
+              </div>
+              <div class="time-col">
+                <div class="in-time">In: 11:06 AM</div>
+                <div class="out-time">Out: 11:37 AM (31m)</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="item-user">
+                <div class="avatar-circ green">G</div>
+                <div>
+                  <div class="name-text">G.Rajeshwari</div>
+                  <div class="phone-text">Phone: 9789739585</div>
+                </div>
+              </div>
+              <div class="time-col">
+                <div class="in-time">In: 10:51 AM</div>
+                <span class="badge-inside">&bull; Inside (77m)</span>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="item-user">
+                <div class="avatar-circ">M</div>
+                <div>
+                  <div class="name-text">M.Abivarshini</div>
+                  <div class="phone-text">Phone: 9679734697</div>
+                </div>
+              </div>
+              <div class="time-col">
+                <div class="in-time">In: 10:39 AM</div>
+                <div class="out-time">Out: 11:57 AM (78m)</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="item-user">
+                <div class="avatar-circ green">A</div>
+                <div>
+                  <div class="name-text">A.Prakash</div>
+                  <div class="phone-text">Phone: 9645813541</div>
+                </div>
+              </div>
+              <div class="time-col">
+                <div class="in-time">In: 10:29 AM</div>
+                <span class="badge-inside">&bull; Inside (99m)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Urgent Dues -->
+        <div class="due-card">
+          <div class="due-header">
+            <span style="font-size:0.85rem; font-weight:700; color:#D97706; display:flex; align-items:center; gap:0.35rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Urgent Due Reminders
+            </span>
+            <a href="#" style="font-size:0.75rem; color:#1E3A8A; font-weight:700; text-decoration:none;">View All</a>
+          </div>
+
+          <div class="due-center-box">
+            <div class="circle-check">&#10003;</div>
+            <div style="font-size:0.85rem; font-weight:700; color:#0F172A;">All member payments are up to date!</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function simulatePunch() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const list = document.getElementById('activity-list');
+
+      const names = ["Sreeram V.", "Kavitha R.", "Dinesh S.", "Anand K."];
+      const name = names[Math.floor(Math.random() * names.length)];
+      const initial = name[0];
+
+      const div = document.createElement('div');
+      div.className = 'activity-item';
+      div.innerHTML = `
+        <div class="item-user">
+          <div class="avatar-circ green">${initial}</div>
+          <div>
+            <div class="name-text">${name}</div>
+            <div class="phone-text">Phone: 98401 ${Math.floor(Math.random()*89999 + 10000)}</div>
+          </div>
+        </div>
+        <div class="time-col">
+          <div class="in-time">In: ${timeStr}</div>
+          <span class="badge-inside">&bull; Inside (Just now)</span>
+        </div>
+      `;
+      list.insertBefore(div, list.firstChild);
+      alert(`[ZKTeco Hardware Relay]: Biometric Punch Verified for ${name}!\nWhatsApp check-in alert dispatched.`);
+    }
+
+    function addNewMember() {
+      const name = prompt("Enter Member Name:", "Siddharth Verma");
+      if (name) {
+        alert(`Member ${name} enrolled into SQLite/Prisma with biometric card assigned!`);
+      }
+    }
+  </script>
+</body>
+</html>

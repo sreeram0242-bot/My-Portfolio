@@ -1,0 +1,521 @@
+/* ========================================================================
+   PC DESKTOP SHOWCASE MODE FOR MOBILE DEVICES
+   Matches the actual website's Warm Cream aesthetic (#F5EFEB / #FAF6F0)
+   Centers the PC desktop app, replaces empty space with rich engineering
+   showcase cards, instructions, and interactive controls.
+   ======================================================================== */
+
+/* Enforce desktop width only during mobile simulation */
+html.is-mobile-pc-view, body.is-mobile-pc-view {
+  min-width: 1280px !important;
+  width: 1280px !important;
+  margin: 0 auto;
+}
+
+/* ========================================================================
+   MOBILE SHOWCASE STAGE (Applied on mobile devices & narrow viewports)
+   ======================================================================== */
+
+html.is-mobile-pc-view {
+  background-color: #F5EFEB !important;
+}
+
+body.is-mobile-pc-view {
+  background-color: #F5EFEB !important;
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(250, 246, 240, 0.9) 0%, rgba(245, 239, 235, 1) 100%) !important;
+  min-height: 100vh !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow-x: hidden !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  color: #242220 !important;
+}
+
+/* Top floating demo header banner on mobile */
+body.is-mobile-pc-view .demo-top-banner {
+  position: sticky !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  min-width: 1280px !important;
+  z-index: 999999 !important;
+  background: var(--banner-match-bg, rgba(245, 239, 235, 0.95)) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--banner-match-border, #DED3C8) !important;
+  color: var(--banner-match-text, #242220) !important;
+  box-shadow: 0 2px 14px rgba(50, 40, 30, 0.06) !important;
+}
+
+body.is-mobile-pc-view .demo-top-banner .demo-title-pill,
+body.is-mobile-pc-view .demo-top-banner strong {
+  color: var(--banner-match-text, #242220) !important;
+}
+
+body.is-mobile-pc-view .demo-top-banner .demo-back-btn {
+  background: var(--banner-match-btn-bg, #FAF6F0) !important;
+  border: 1px solid var(--banner-match-border, #DED3C8) !important;
+  color: var(--banner-match-text, #242220) !important;
+}
+
+body.is-mobile-pc-view .demo-top-banner .demo-back-btn:hover {
+  background: #FFFFFF !important;
+  border-color: #3B7A57 !important;
+  color: #3B7A57 !important;
+}
+
+/* Outer Showcase Container */
+.pc-desktop-stage {
+  width: 1280px !important;
+  min-width: 1280px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 1.75rem 20px 4rem !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
+/* Upper Showcase Header in Empty Space */
+.pc-showcase-header {
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+  max-width: 900px !important;
+}
+
+.pc-showcase-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  background: rgba(59, 122, 87, 0.12) !important;
+  color: #2F6246 !important;
+  border: 1px solid rgba(59, 122, 87, 0.25) !important;
+  padding: 0.3rem 0.85rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.pc-pulse-dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+  display: inline-block !important;
+  animation: pulse-dot 2s infinite !important;
+}
+
+.pc-showcase-title {
+  font-size: 1.85rem !important;
+  font-weight: 800 !important;
+  color: #242220 !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.pc-showcase-subtitle {
+  font-size: 0.92rem !important;
+  color: #6B635B !important;
+  line-height: 1.5 !important;
+}
+
+/* Centered Desktop Window Container — with mini browser titlebar */
+.pc-desktop-window {
+  width: 1240px !important;
+  max-width: 1240px !important;
+  height: 820px !important;
+  min-height: 820px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 24px 70px -15px rgba(50, 40, 30, 0.22),
+    0 0 0 1px rgba(222, 211, 200, 0.9) !important;
+  background: #FFFFFF !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Mini browser titlebar inside the mobile showcase window */
+.pc-desktop-window::before {
+  content: '' !important;
+  display: block !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  background: var(--banner-match-bg, #EFEBE5) !important;
+  border-bottom: 1px solid rgba(222, 211, 200, 0.85) !important;
+  flex-shrink: 0 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='12' viewBox='0 0 52 12'%3E%3Ccircle cx='6' cy='6' r='5' fill='%23FF5F57'/%3E%3Ccircle cx='24' cy='6' r='5' fill='%23FEBC2E'/%3E%3Ccircle cx='42' cy='6' r='5' fill='%2328C840'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: 12px center !important;
+}
+
+/* When the app is a dark themed desktop app (like WhatsApp CRM or Spotdown) */
+.pc-desktop-window.dark-app {
+  background: #0C0D10 !important;
+  box-shadow:
+    0 25px 75px -15px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(60, 55, 50, 0.7) !important;
+}
+
+.pc-desktop-window.dark-app::before {
+  background: #1A1512 !important;
+  border-bottom: 1px solid rgba(60, 50, 40, 0.7) !important;
+}
+
+/* Inner scroll area fills remaining height after titlebar */
+.pc-desktop-window > :not(.pc-window-inner) {
+  flex: 1 !important;
+  overflow: auto !important;
+}
+
+/* Internal layout fills window height */
+body.is-mobile-pc-view .gym-layout,
+body.is-mobile-pc-view .bistro-shell,
+body.is-mobile-pc-view .dine-shell,
+body.is-mobile-pc-view .app-shell {
+  height: 100% !important;
+  min-height: 100% !important;
+  flex: 1 !important;
+}
+
+/* Lower Showcase Area (Filling the empty bottom space with designs & texts) */
+.pc-showcase-footer {
+  width: 1240px !important;
+  max-width: 1240px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 1.5rem !important;
+}
+
+/* Control Pills Bar */
+.pc-showcase-controls {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+  background: #FAF6F0 !important;
+  border: 1px solid #DED3C8 !important;
+  border-radius: 9999px !important;
+  padding: 0.55rem 1.4rem !important;
+  box-shadow: 0 4px 16px rgba(50, 40, 30, 0.06) !important;
+}
+
+.pc-control-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: #242220 !important;
+}
+
+.pc-control-sep {
+  color: #B5A698 !important;
+  font-size: 0.65rem !important;
+}
+
+/* Engineering Spec Cards Grid */
+.pc-feature-cards-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1rem !important;
+  width: 100% !important;
+}
+
+.pc-spec-card {
+  background: rgba(250, 246, 240, 0.95) !important;
+  border: 1px solid #DED3C8 !important;
+  border-radius: 14px !important;
+  padding: 1.1rem 1.2rem !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.8rem !important;
+  box-shadow: 0 2px 10px rgba(50, 40, 30, 0.04) !important;
+}
+
+.pc-spec-icon {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  color: #B45309 !important;
+}
+
+.pc-spec-title {
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #242220 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.pc-spec-desc {
+  font-size: 0.78rem !important;
+  color: #6B635B !important;
+  line-height: 1.5 !important;
+}
+
+/* Action Buttons */
+.pc-showcase-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.85rem !important;
+}
+
+.pc-btn-portfolio,
+.pc-btn-github {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.75rem 1.6rem !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 8px rgba(50, 40, 30, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.pc-btn-portfolio {
+  background: linear-gradient(135deg, #F59E0B, #FFB13B) !important;
+  color: #1F1710 !important;
+  border: none !important;
+}
+
+.pc-btn-portfolio:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35) !important;
+}
+
+.pc-btn-github {
+  background: #FAF6F0 !important;
+  color: #242220 !important;
+  border: 1px solid #DED3C8 !important;
+}
+
+.pc-btn-github:hover {
+  background: #FFFFFF !important;
+  border-color: #242220 !important;
+  transform: translateY(-1px) !important;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.3); }
+}
+
+/* ========================================================================
+   DESKTOP PC BROWSER WINDOW FRAME
+   Applied when a PC web demo is opened on a desktop browser.
+   Gives rounded corners, drop shadow, and macOS-style titlebar.
+   ======================================================================== */
+
+/* Body background — Warm Cream portfolio color */
+html.is-desktop-pc-frame,
+body.is-desktop-pc-frame {
+  background: #F5EFEB !important;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(245,158,11,0.07) 0%, transparent 70%),
+    radial-gradient(circle at 90% 90%, rgba(245,158,11,0.04) 0%, transparent 60%) !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Demo banner stays sticky at top — full width */
+body.is-desktop-pc-frame .demo-top-banner {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+  background: var(--banner-match-bg, rgba(245,239,235,0.96)) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--banner-match-border, rgba(222,211,200,0.7)) !important;
+  color: var(--banner-match-text, #242220) !important;
+}
+
+body.is-desktop-pc-frame .demo-top-banner .demo-back-btn {
+  background: var(--banner-match-btn-bg, #FAF6F0) !important;
+  border: 1px solid var(--banner-match-border, #DED3C8) !important;
+  color: var(--banner-match-text, #242220) !important;
+}
+
+/* The macOS-style window card */
+.pc-browser-frame {
+  width: calc(100% - 3rem) !important;
+  max-width: 1440px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.7) inset,
+    0 32px 80px -15px rgba(41, 35, 30, 0.25),
+    0 10px 25px -8px rgba(41, 35, 30, 0.12),
+    0 0 0 1px rgba(222, 211, 200, 0.9) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 1.25rem auto 2rem !important;
+  position: relative !important;
+  flex: 1 !important;
+  background: var(--banner-match-bg, #FFFFFF) !important;
+}
+
+/* Dark-theme app variant */
+.pc-browser-frame.dark-app {
+  background: var(--banner-match-bg, #090C13) !important;
+  box-shadow:
+    0 40px 90px -15px rgba(0, 0, 0, 0.6),
+    0 12px 30px -8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Title bar strip */
+.pc-browser-titlebar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  padding: 0 1rem !important;
+  height: 40px !important;
+  background: #EAE5DE !important;
+  border-bottom: 1px solid rgba(222, 211, 200, 0.9) !important;
+  flex-shrink: 0 !important;
+  user-select: none !important;
+  position: relative !important;
+}
+
+.pc-browser-frame.dark-app .pc-browser-titlebar {
+  background: #141A22 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Traffic-light dots */
+.pc-browser-dots {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+}
+
+.pc-dot {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  display: block !important;
+  transition: filter 0.15s ease !important;
+}
+
+.dot-close { background: #FF5F57 !important; box-shadow: 0 0 0 0.5px rgba(0,0,0,0.12) !important; }
+.dot-min   { background: #FEBC2E !important; box-shadow: 0 0 0 0.5px rgba(0,0,0,0.12) !important; }
+.dot-max   { background: #28C840 !important; box-shadow: 0 0 0 0.5px rgba(0,0,0,0.12) !important; }
+
+.pc-browser-dots:hover .dot-close { filter: brightness(0.85) !important; }
+.pc-browser-dots:hover .dot-min   { filter: brightness(0.85) !important; }
+.pc-browser-dots:hover .dot-max   { filter: brightness(0.85) !important; }
+
+/* URL bar pill (center of titlebar) */
+.pc-browser-urlbar {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(222,211,200,0.9) !important;
+  border-radius: 7px !important;
+  padding: 3px 10px !important;
+  min-width: 220px !important;
+  max-width: 380px !important;
+  font-size: 0.76rem !important;
+  color: #756A60 !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+.pc-browser-frame.dark-app .pc-browser-urlbar {
+  background: rgba(30, 25, 20, 0.7) !important;
+  border-color: rgba(70, 60, 50, 0.7) !important;
+  color: #9E8E80 !important;
+}
+
+.pc-url-text {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 300px !important;
+}
+
+/* Tab pill (right side of titlebar) */
+.pc-browser-tabs-area {
+  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.pc-browser-tab-active {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  background: rgba(245,158,11,0.12) !important;
+  border: 1px solid rgba(245,158,11,0.3) !important;
+  border-radius: 6px !important;
+  padding: 2px 10px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #92400E !important;
+  max-width: 160px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.pc-browser-frame.dark-app .pc-browser-tab-active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+/* Content area — the actual app renders here, clipped by frame's border-radius */
+.pc-browser-content {
+  flex: 1 !important;
+  overflow: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  min-height: 0 !important;
+  background: var(--banner-match-bg, #FFFFFF) !important;
+}
+
+.pc-browser-frame.dark-app .pc-browser-content {
+  background: var(--banner-match-bg, #090C13) !important;
+}
+
+/* Make inner app fill the content area */
+.pc-browser-content > * {
+  flex-shrink: 0;
+}

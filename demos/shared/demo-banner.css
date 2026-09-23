@@ -1,0 +1,156 @@
+/* ========================================================================
+   SHARED DEMO UI BANNER & STYLES (Zero Server Load, 100% Safe Frontend)
+   ======================================================================== */
+
+:root {
+  --demo-banner-bg: var(--banner-match-bg, rgba(245, 239, 235, 0.95));
+  --demo-border: var(--banner-match-border, #DED3C8);
+  --demo-text: var(--banner-match-text, #242220);
+  --demo-card-bg: var(--banner-match-btn-bg, #FAF6F0);
+  --demo-muted: #6B635B;
+  --demo-primary: #3B7A57;
+  --demo-primary-dark: #2F6246;
+  --demo-accent: #C27D38;
+  --demo-shadow: 0 4px 20px rgba(50, 40, 30, 0.08);
+}
+
+.demo-top-banner {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 99999;
+  background: var(--banner-match-bg, var(--demo-banner-bg)) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--banner-match-border, var(--demo-border)) !important;
+  padding: 0.65rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  color: var(--banner-match-text, var(--demo-text)) !important;
+}
+
+.demo-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.demo-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
+  background: var(--banner-match-btn-bg, var(--demo-card-bg)) !important;
+  border: 1px solid var(--banner-match-border, var(--demo-border)) !important;
+  border-radius: 9999px;
+  color: var(--banner-match-text, var(--demo-text)) !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+}
+
+.demo-back-btn:hover {
+  filter: brightness(1.15);
+  transform: translateX(-2px);
+}
+
+.demo-title-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.86rem;
+  color: var(--banner-match-text, var(--demo-text)) !important;
+  min-width: 0;
+}
+
+.demo-title-pill strong {
+  color: var(--banner-match-text, var(--demo-text)) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.demo-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(59, 122, 87, 0.14);
+  color: #2F6246;
+  border: 1px solid rgba(59, 122, 87, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.demo-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  display: inline-block;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.demo-banner-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.demo-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  background: var(--banner-match-btn-bg, #242220) !important;
+  color: var(--banner-match-text, #FAF6F0) !important;
+  border: 1px solid var(--banner-match-border, rgba(0,0,0,0.15)) !important;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.demo-repo-link:hover {
+  background: #3B7A57 !important;
+  border-color: #3B7A57 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .demo-top-banner {
+    padding: 0.5rem 0.75rem;
+    flex-wrap: wrap;
+  }
+  .demo-pill-badge {
+    display: none;
+  }
+  .demo-title-pill strong {
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.3, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes">
+  <link rel="stylesheet" href="../shared/pc-desktop-mode.css">
+  <script src="../shared/pc-desktop-mode.js"></script>
+  <title>Cafe Bistro — 100% Offline POS Billing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #F4F6F8;
+      color: #212529;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Navbar */
+    .bistro-topbar {
+      height: 52px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      flex-shrink: 0;
+    }
+    .bistro-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0F5132;
+      letter-spacing: 0.04em;
+    }
+    .bistro-menu-btn {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #0F5132;
+    }
+    .bistro-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.82rem;
+      color: #4B5563;
+    }
+    .offline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #D1E7DD;
+      color: #0F5132;
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+    }
+    .offline-dot {
+      width: 6px;
+      height: 6px;
+      background: #198754;
+      border-radius: 50%;
+    }
+
+    /* Layout Shell */
+    .bistro-shell {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 52px - 44px);
+      overflow: hidden;
+    }
+
+    /* Left Sidebar */
+    .bistro-sidebar {
+      width: 130px;
+      background: #FFFFFF;
+      border-right: 1px solid #E5E7EB;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .cat-header-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #4B5563;
+      padding: 0.75rem 0.85rem 0.35rem;
+      letter-spacing: 0.05em;
+    }
+    .bistro-cat-item {
+      padding: 0.55rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+      border-radius: 6px;
+      margin: 0.1rem 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .bistro-cat-item:hover {
+      background: #F3F4F6;
+    }
+    .bistro-cat-item.active {
+      background: #0F5132;
+      color: #FFFFFF;
+    }
+    .bistro-cat-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #4B5563;
+    }
+    .bistro-cat-item.active .bistro-cat-badge {
+      color: #FFFFFF;
+    }
+
+    /* Center Menu Catalog */
+    .bistro-center {
+      flex: 1;
+      background: #F8F9FA;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 1rem 1.25rem;
+    }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem 0.55rem 2.2rem;
+      font-size: 0.84rem;
+      color: #1F2937;
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9CA3AF;
+    }
+    .pill-group {
+      display: flex;
+      background: #E5E7EB;
+      border-radius: 8px;
+      padding: 0.15rem;
+      gap: 0.15rem;
+    }
+    .pill-btn {
+      border: none;
+      background: none;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #4B5563;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .pill-btn.active {
+      background: #FFFFFF;
+      color: #111827;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .category-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 0.85rem;
+    }
+
+    .waffles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+    .waffle-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 112px;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .veg-icon {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #16A34A;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.35rem;
+    }
+    .veg-dot {
+      width: 6px;
+      height: 6px;
+      background: #16A34A;
+      border-radius: 50%;
+    }
+    .waffle-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1F2937;
+      line-height: 1.25;
+    }
+    .waffle-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    .waffle-price {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .waffle-add-btn {
+      width: 24px;
+      height: 24px;
+      background: #0F5132;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Right Bill Panel */
+    .bistro-bill {
+      width: 330px;
+      background: #FFFFFF;
+      border-left: 1px solid #E5E7EB;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .bill-top-row {
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .bill-number {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #111827;
+    }
+    .bill-badge-green {
+      background: #D1E7DD;
+      color: #0F5132;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+    }
+    .bill-order-type {
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.65rem 1.1rem;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .type-tab {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #D1D5DB;
+      background: #FFFFFF;
+      cursor: pointer;
+    }
+    .type-tab.active {
+      background: #0F5132;
+      color: #FFFFFF;
+      border-color: #0F5132;
+    }
+    .type-clear {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #EF4444;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .bill-items-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .bill-item-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px dashed #E5E7EB;
+      padding-bottom: 0.65rem;
+    }
+    .item-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #1F2937;
+    }
+    .badge-m {
+      background: #D1E7DD;
+      color: #0F5132;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+    .item-price-sub {
+      font-size: 0.72rem;
+      color: #6B7280;
+      margin-top: 0.15rem;
+    }
+    .bill-qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #F3F4F6;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .qty-btn {
+      background: none;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      color: #374151;
+    }
+
+    /* Bill Footer */
+    .bill-footer {
+      padding: 1rem 1.1rem;
+      border-top: 1px solid #E5E7EB;
+      background: #FFFFFF;
+    }
+    .subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #6B7280;
+      margin-bottom: 0.4rem;
+    }
+    .grandtotal-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0F5132;
+      margin-bottom: 0.85rem;
+    }
+    .pay-methods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .pay-btn {
+      padding: 0.45rem;
+      border: 1px solid #D1D5DB;
+      background: #FFFFFF;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+    .pay-btn.active {
+      border-color: #0F5132;
+      color: #0F5132;
+      background: #D1E7DD;
+    }
+    .bill-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 0.5rem;
+    }
+    .btn-save-only {
+      background: #FFFFFF;
+      border: 1px solid #0F5132;
+      color: #0F5132;
+      padding: 0.65rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .btn-save-print {
+      background: #0F5132;
+      border: none;
+      color: #FFFFFF;
+      padding: 0.65rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      rgba(244,246,248,0.97);
+      --banner-match-border:  rgba(226,232,240,0.9);
+      --banner-match-text:    #1E293B;
+      --banner-match-btn-bg:  #EEF2F7;
+    }
+    .demo-top-banner {
+      background: #F4F6F8 !important;
+      background: var(--banner-match-bg, #F4F6F8) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn,
+    .demo-repo-link {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Universal Demo Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>Cafe Bistro &bull; 100% Offline POS Billing</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Profile</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Original App Header -->
+  <header class="bistro-topbar">
+    <div class="bistro-brand">
+      <button class="bistro-menu-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+      <span>CAFE BISTRO</span>
+    </div>
+    <div class="bistro-meta">
+      <span id="bistro-clock">11 Sept 2026 | 12:44:42 PM</span>
+      <span class="offline-pill">
+        <span class="offline-dot"></span>
+        100% OFFLINE
+      </span>
+    </div>
+  </header>
+
+  <!-- Main Shell -->
+  <div class="bistro-shell">
+    <!-- Left Categories -->
+    <aside class="bistro-sidebar">
+      <div class="cat-header-label">CATEGORIES</div>
+      <div class="bistro-cat-item"><span>French Fries</span><span class="bistro-cat-badge">6</span></div>
+      <div class="bistro-cat-item"><span>Pasta</span><span class="bistro-cat-badge">4</span></div>
+      <div class="bistro-cat-item"><span>Maggie</span><span class="bistro-cat-badge">5</span></div>
+      <div class="bistro-cat-item"><span>Fried Chicken</span><span class="bistro-cat-badge">4</span></div>
+      <div class="bistro-cat-item"><span>Sandwich</span><span class="bistro-cat-badge">8</span></div>
+      <div class="bistro-cat-item"><span>Burger</span><span class="bistro-cat-badge">9</span></div>
+      <div class="bistro-cat-item"><span>Pizza</span><span class="bistro-cat-badge">13</span></div>
+      <div class="bistro-cat-item"><span>Fried Rice</span><span class="bistro-cat-badge">11</span></div>
+      <div class="bistro-cat-item"><span>Noodles</span><span class="bistro-cat-badge">10</span></div>
+      <div class="bistro-cat-item"><span>Starters</span><span class="bistro-cat-badge">13</span></div>
+      <div class="bistro-cat-item"><span>Momos & Specials</span><span class="bistro-cat-badge">9</span></div>
+      <div class="bistro-cat-item"><span>Shawarma</span><span class="bistro-cat-badge">9</span></div>
+      <div class="bistro-cat-item active"><span>Waffles</span><span class="bistro-cat-badge">17</span></div>
+      <div class="bistro-cat-item"><span>Mojito & Shakes</span><span class="bistro-cat-badge">10</span></div>
+    </aside>
+
+    <!-- Center Menu Items -->
+    <main class="bistro-center">
+      <div class="filter-bar">
+        <div class="search-box">
+          <span class="search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+          <input type="text" class="search-input" placeholder="Search menu item (e.g. Pizza, Momo, Tea)...">
+        </div>
+        <div class="pill-group">
+          <button class="pill-btn active">All</button>
+          <button class="pill-btn"><span style="color:#16A34A;">&bull;</span> Veg</button>
+          <button class="pill-btn"><span style="color:#DC2626;">&bull;</span> Non-Veg</button>
+        </div>
+      </div>
+
+      <h2 class="category-title">Waffles</h2>
+
+      <div class="waffles-grid" id="waffles-grid">
+        <!-- JS rendered original waffle cards -->
+      </div>
+    </main>
+
+    <!-- Right Bill Panel -->
+    <aside class="bistro-bill">
+      <div class="bill-top-row">
+        <div style="display:flex; align-items:center;">
+          <span class="bill-number">Bill</span>
+          <span class="bill-badge-green">#104</span>
+        </div>
+        <span style="font-size:0.8rem; color:#6B7280;" id="cart-item-count">3 items</span>
+      </div>
+
+      <div class="bill-order-type">
+        <button class="type-tab active">Dine-In</button>
+        <button class="type-tab">Parcel</button>
+        <button class="type-clear" onclick="clearBistroCart()">Clear</button>
+      </div>
+
+      <div class="bill-items-scroll" id="bill-items-scroll">
+        <!-- Rendered items matching screenshot -->
+      </div>
+
+      <div class="bill-footer">
+        <div class="subtotal-row">
+          <span>Subtotal</span>
+          <span id="subtotal-val">Rs. 337</span>
+        </div>
+        <div class="grandtotal-row">
+          <span>Grand Total</span>
+          <span id="grandtotal-val">Rs. 337</span>
+        </div>
+
+        <div class="pay-methods">
+          <button class="pay-btn active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>Cash</button>
+          <button class="pay-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>UPI / QR</button>
+          <button class="pay-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>Card</button>
+        </div>
+
+        <div class="bill-actions">
+          <button class="btn-save-only" onclick="alert('Order Saved into Local SQLite Database!')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>Save Only</button>
+          <button class="btn-save-print" onclick="alert('Order Dispatched!\nThermal ESC/POS receipt printed in 12ms.')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;display:inline-block;margin-right:4px;"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Save & Print</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const waffleItems = [
+      { name: "Belgium Choco Waffle", price: 99 },
+      { name: "Belgium Double Choco Waffle", price: 119 },
+      { name: "Belgium Biscoff Waffle", price: 129 },
+      { name: "Belgium Caramel Waffle", price: 129 },
+      { name: "Belgium Blueberry Waffle", price: 129 },
+      { name: "Belgium Strawberry Waffle", price: 129 },
+      { name: "Belgium Waffle with Ice Cream", price: 149 },
+      { name: "Choco Stick Waffle", price: 99 },
+      { name: "Double Choco Stick Waffle", price: 129 },
+      { name: "Caramel Stick Waffle", price: 129 },
+      { name: "Hazel Stick Waffle", price: 129 },
+      { name: "Nuts Loaded Stick Waffle", price: 139 },
+      { name: "Bubble with Coco Waffle", price: 149 },
+      { name: "Strawberry Bubble Waffle", price: 169 },
+      { name: "Blueberry Bubble Waffle", price: 169 },
+      { name: "Raspberry Bubble Waffle", price: 169 },
+      { name: "Bubble with Ice Cream Waffle", price: 179 }
+    ];
+
+    let billItems = [
+      { name: "Belgium Double Choco Waffle", price: 119, qty: 1, tag: "" },
+      { name: "Chicken Strips", price: 119, qty: 1, tag: "M" },
+      { name: "Chicken Popcorn", price: 99, qty: 1, tag: "M" }
+    ];
+
+    function renderWaffles() {
+      const grid = document.getElementById('waffles-grid');
+      grid.innerHTML = '';
+      waffleItems.forEach(w => {
+        const div = document.createElement('div');
+        div.className = 'waffle-card';
+        div.innerHTML = `
+          <div>
+            <div class="veg-icon"><div class="veg-dot"></div></div>
+            <div class="waffle-name">${w.name}</div>
+          </div>
+          <div class="waffle-bottom-row">
+            <span class="waffle-price">Rs. ${w.price}</span>
+            <button class="waffle-add-btn" onclick="addBillItem('${w.name}', ${w.price})">+</button>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    function renderBill() {
+      const list = document.getElementById('bill-items-scroll');
+      list.innerHTML = '';
+      let sum = 0;
+      billItems.forEach((item, idx) => {
+        const itemTotal = item.price * item.qty;
+        sum += itemTotal;
+        const div = document.createElement('div');
+        div.className = 'bill-item-card';
+        div.innerHTML = `
+          <div>
+            <div class="item-title-row">
+              <span>${item.name}</span>
+              ${item.tag ? `<span class="badge-m">${item.tag}</span>` : ''}
+            </div>
+            <div class="item-price-sub">Rs. ${item.price} each</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <div class="bill-qty-controls">
+              <button class="qty-btn" onclick="changeQty(${idx}, -1)">-</button>
+              <span>${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+            </div>
+            <span style="font-size:0.85rem; font-weight:700;">Rs. ${itemTotal}</span>
+            <button onclick="removeBillItem(${idx})" style="background:none; border:none; color:#9CA3AF; cursor:pointer; font-size:0.85rem;">&times;</button>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+
+      document.getElementById('subtotal-val').textContent = 'Rs. ' + sum;
+      document.getElementById('grandtotal-val').textContent = 'Rs. ' + sum;
+      document.getElementById('cart-item-count').textContent = billItems.length + ' items';
+    }
+
+    function changeQty(idx, delta) {
+      billItems[idx].qty += delta;
+      if (billItems[idx].qty <= 0) {
+        billItems.splice(idx, 1);
+      }
+      renderBill();
+    }
+
+    function removeBillItem(idx) {
+      billItems.splice(idx, 1);
+      renderBill();
+    }
+
+    function addBillItem(name, price) {
+      const ex = billItems.find(i => i.name === name);
+      if (ex) { ex.qty += 1; }
+      else { billItems.push({ name, price, qty: 1, tag: "" }); }
+      renderBill();
+    }
+
+    function clearBistroCart() {
+      billItems = [];
+      renderBill();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWaffles();
+      renderBill();
+      // Live Clock
+      setInterval(() => {
+        const now = new Date();
+        document.getElementById('bistro-clock').textContent = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) + ' | ' + now.toLocaleTimeString('en-US');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

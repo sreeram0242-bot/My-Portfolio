@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=0.3, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes">
+  <link rel="stylesheet" href="../shared/pc-desktop-mode.css">
+  <script src="../shared/pc-desktop-mode.js"></script>
+  <title>Engineers Kitchen — Desktop POS Billing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #FBF9F5;
+      color: #1F2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pos-header-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid #ECE7DE;
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .hamburger-sq-btn {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #E5DFD5;
+      border-radius: 8px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: #0F3A2E;
+    }
+    .pos-center-brand {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0F3A2E;
+    }
+
+    .pos-body-grid {
+      max-width: 1280px;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 1.5rem;
+      flex: 1;
+    }
+
+    .card-panel {
+      background: #FFFFFF;
+      border: 1px solid #EFEAE1;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      margin-bottom: 1.25rem;
+    }
+    .serif-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.1rem;
+    }
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0F3A2E;
+    }
+    .date-text {
+      font-size: 0.75rem;
+      color: #6B7280;
+    }
+
+    .pos-field {
+      margin-bottom: 0.85rem;
+    }
+    .pos-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #9CA3AF;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+      display: block;
+      text-transform: uppercase;
+    }
+    .pos-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #E5DFD5;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.86rem;
+      color: #111827;
+      font-family: inherit;
+    }
+
+    .cart-price-gold {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #C59B27;
+    }
+    .cart-row-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F3EFE6;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 0.65rem;
+    }
+    .cart-btn-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #0F3A2E;
+      color: #FFFFFF;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .btn-save-bill {
+      width: 100%;
+      background: #C59B27;
+      color: #FFFFFF;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    /* Right Menu Section */
+    .menu-search {
+      width: 100%;
+      border: 1px solid #E5DFD5;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .category-pills-row {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      padding-bottom: 0.35rem;
+    }
+    .cat-pill-tag {
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      border: 1px solid #E5DFD5;
+      background: #FFFFFF;
+      color: #4B5563;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .cat-pill-tag.active {
+      background: #C59B27;
+      border-color: #C59B27;
+      color: #FFFFFF;
+    }
+
+    .menu-items-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border: 1px solid #E5DFD5;
+      border-radius: 8px;
+      background: #FFFFFF;
+      transition: all 0.15s ease;
+    }
+    .menu-item-row.selected {
+      border: 1.5px solid #C59B27;
+    }
+    .item-left-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    .item-right-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .item-price-gold {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #C59B27;
+    }
+    .badge-free {
+      font-size: 0.65rem;
+      border: 1px solid #E5DFD5;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      color: #6B7280;
+      font-weight: 600;
+    }
+  </style>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      rgba(251,249,245,0.97);
+      --banner-match-border:  rgba(222,211,200,0.9);
+      --banner-match-text:    #29231E;
+      --banner-match-btn-bg:  #FAF6F0;
+    }
+    .demo-top-banner {
+      background: #FBF9F5 !important;
+      background: var(--banner-match-bg, #FBF9F5) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn,
+    .demo-repo-link {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Universal Demo Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>Engineers Kitchen &bull; Desktop POS Billing Engine</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/offermonitor-IDE" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Original Header -->
+  <header class="pos-header-bar">
+    <button class="hamburger-sq-btn">&#9776;</button>
+    <div class="pos-center-brand">Engineers Kitchen</div>
+  </header>
+
+  <div class="pos-body-grid">
+    <!-- Left Column -->
+    <div>
+      <!-- Order Info Card -->
+      <div class="card-panel">
+        <div class="serif-head-row">
+          <span class="serif-title">Order #1</span>
+          <span class="date-text">2026-09-11</span>
+        </div>
+        <div class="pos-field">
+          <label class="pos-label">PHONE (optional)</label>
+          <input type="text" class="pos-input" value="9629661668">
+        </div>
+        <div class="pos-field">
+          <label class="pos-label">NAME (optional)</label>
+          <input type="text" class="pos-input" value="SreeRam">
+        </div>
+        <div class="pos-field">
+          <label class="pos-label">BILL DATE</label>
+          <input type="text" class="pos-input" value="09 / 11 / 2026">
+        </div>
+      </div>
+
+      <!-- Cart Card -->
+      <div class="card-panel">
+        <div class="serif-head-row">
+          <span class="serif-title">Cart</span>
+          <span class="cart-price-gold" id="cart-total-top">&#8377;108</span>
+        </div>
+
+        <div id="cart-items-container">
+          <div class="cart-row-item">
+            <div>
+              <strong style="font-size:0.86rem;">Veg sandwich</strong>
+              <div style="font-size:0.72rem; color:#6B7280;">&#8377;39 each</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <button class="cart-btn-circle">-</button>
+              <span style="font-weight:700;">1</span>
+              <button class="cart-btn-circle">+</button>
+              <span style="font-weight:700; margin-left:0.5rem;">&#8377;39</span>
+            </div>
+          </div>
+
+          <div class="cart-row-item">
+            <div>
+              <strong style="font-size:0.86rem;">Chicken sandwich</strong>
+              <div style="font-size:0.72rem; color:#6B7280;">&#8377;69 each</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <button class="cart-btn-circle">-</button>
+              <span style="font-weight:700;">1</span>
+              <button class="cart-btn-circle">+</button>
+              <span style="font-weight:700; margin-left:0.5rem;">&#8377;69</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#6B7280; margin-top:1rem;">
+          <span>Subtotal</span>
+          <span>&#8377;108</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.95rem; font-weight:700; margin-top:0.35rem;">
+          <span>Grand Total</span>
+          <span id="grand-total-val">&#8377;108</span>
+        </div>
+
+        <button class="btn-save-bill" onclick="alert('Order Saved!\nReceipt Printed & Serial COM Cash Drawer Opened.')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Save Bill &bull; &#8377;108
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column (Menu) -->
+    <div class="card-panel">
+      <div class="serif-head-row">
+        <span class="serif-title">Menu</span>
+      </div>
+
+      <input type="text" class="menu-search" placeholder="Search items...">
+
+      <div class="category-pills-row">
+        <span class="cat-pill-tag active">All</span>
+        <span class="cat-pill-tag">Sandwiches</span>
+        <span class="cat-pill-tag">Burgers</span>
+        <span class="cat-pill-tag">Fries</span>
+        <span class="cat-pill-tag">Manchurian</span>
+        <span class="cat-pill-tag">Noodles</span>
+        <span class="cat-pill-tag">Rice</span>
+      </div>
+
+      <div class="menu-items-stack">
+        <div class="menu-item-row selected">
+          <span class="item-left-title">Veg sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;39</span>
+            <div style="display:flex; align-items:center; gap:0.3rem;">
+              <button class="cart-btn-circle">-</button>
+              <span style="font-weight:700; font-size:0.85rem;">1</span>
+              <button class="cart-btn-circle">+</button>
+            </div>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Club sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;39</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Veg korean toasty sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;59</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Veg loaded sandwich / Paneer</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;59</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row selected">
+          <span class="item-left-title">Chicken sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;69</span>
+            <div style="display:flex; align-items:center; gap:0.3rem;">
+              <button class="cart-btn-circle">-</button>
+              <span style="font-weight:700; font-size:0.85rem;">1</span>
+              <button class="cart-btn-circle">+</button>
+            </div>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Chicken loaded sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;89</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Egg stuffed sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;69</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Chicken Korean toasty sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;79</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+
+        <div class="menu-item-row">
+          <span class="item-left-title">Chocolate sandwich</span>
+          <div class="item-right-actions">
+            <span class="item-price-gold">&#8377;59</span>
+            <span class="badge-free">FREE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

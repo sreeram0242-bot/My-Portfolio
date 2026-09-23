@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineers Kitchen — Android APK Waiter Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/demo-banner.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: #EFECE6;
+      color: #1F2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-container {
+      max-width: 380px;
+      margin: 1.5rem auto;
+      width: 100%;
+      background: #FBF9F5;
+      border: 1px solid #D8D2C5;
+      border-radius: 20px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    /* On actual mobile phones: remove decorative phone frame, go full screen */
+    @media (max-width: 540px) {
+      body {
+        background: #FBF9F5;
+        min-height: 100dvh;
+      }
+      .phone-container {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        min-height: 100dvh;
+        flex: 1;
+      }
+    }
+
+    .mobile-header {
+      background: #FFFFFF;
+      border-bottom: 1px solid #ECE7DE;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .m-burger {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #E5DFD5;
+      border-radius: 6px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #0F3A2E;
+    }
+    .m-brand {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0F3A2E;
+    }
+
+    .m-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .m-card {
+      background: #FFFFFF;
+      border: 1px solid #EFEAE1;
+      border-radius: 10px;
+      padding: 0.85rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .m-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.65rem;
+    }
+    .m-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0F3A2E;
+    }
+    .m-gold-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #C59B27;
+    }
+
+    .m-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F3EFE6;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .m-circle-btn {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #0F3A2E;
+      color: #FFFFFF;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .m-save-btn {
+      width: 100%;
+      background: #C59B27;
+      color: #FFFFFF;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .m-search {
+      width: 100%;
+      border: 1px solid #E5DFD5;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.65rem;
+    }
+    .m-pills-row {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.25rem;
+    }
+    .m-pill {
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid #E5DFD5;
+      background: #FFFFFF;
+      color: #4B5563;
+      white-space: nowrap;
+    }
+    .m-pill.active {
+      background: #C59B27;
+      border-color: #C59B27;
+      color: #FFFFFF;
+    }
+
+    .m-menu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #E5DFD5;
+      border-radius: 6px;
+      background: #FFFFFF;
+      margin-bottom: 0.5rem;
+    }
+    .m-menu-row.selected {
+      border: 1.5px solid #C59B27;
+    }
+
+    .m-bottom-nav {
+      background: #FFFFFF;
+      border-top: 1px solid #ECE7DE;
+      padding: 0.65rem 1rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 1.1rem;
+      color: #0F3A2E;
+    }
+  </style>
+  <style>
+    /* Banner color match — aligns demo-top-banner with this app's background */
+    :root {
+      --banner-match-bg:      rgba(239,236,230,0.97);
+      --banner-match-border:  rgba(222,211,200,0.8);
+      --banner-match-text:    #1F2937;
+      --banner-match-btn-bg:  #F8F3ED;
+    }
+    .demo-top-banner {
+      background: #EFECE6 !important;
+      background: var(--banner-match-bg, #EFECE6) !important;
+      border-bottom-color: var(--banner-match-border) !important;
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn,
+    .demo-repo-link {
+      color: var(--banner-match-text) !important;
+    }
+    .demo-back-btn {
+      background: var(--banner-match-btn-bg) !important;
+      border-color: var(--banner-match-border) !important;
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Universal Demo Banner -->
+  <header class="demo-top-banner">
+    <div class="demo-banner-left">
+      <a href="../../#projects" class="demo-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Portfolio</span>
+      </a>
+      <div class="demo-title-pill">
+        <strong>Engineers Kitchen &bull; Android APK Handheld Waiter Terminal</strong>
+        <span class="demo-pill-badge">
+          <span class="demo-status-dot"></span>
+          100% Original Frontend &bull; Safe Simulation
+        </span>
+      </div>
+    </div>
+    <div class="demo-banner-right">
+      <a href="https://github.com/sreeram0242-bot/offermonitor-IDE" target="_blank" rel="noopener noreferrer" class="demo-repo-link">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        <span>GitHub Repo</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="phone-container">
+    <div class="mobile-header">
+      <button class="m-burger">&#9776;</button>
+      <div class="m-brand">Engineers Kitchen</div>
+    </div>
+
+    <div class="m-scroll">
+      <!-- Cart Card -->
+      <div class="m-card">
+        <div class="m-head-row">
+          <span class="m-title">Cart</span>
+          <span class="m-gold-price">&#8377;147</span>
+        </div>
+
+        <div class="m-item-row">
+          <div>
+            <strong style="font-size:0.82rem;">Veg sandwich</strong>
+            <div style="font-size:0.7rem; color:#6B7280;">&#8377;39 each</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <button class="m-circle-btn">-</button>
+            <span style="font-weight:700; font-size:0.82rem;">1</span>
+            <button class="m-circle-btn">+</button>
+            <span style="font-weight:700; font-size:0.85rem; margin-left:0.3rem;">&#8377;39</span>
+          </div>
+        </div>
+
+        <div class="m-item-row">
+          <div>
+            <strong style="font-size:0.82rem;">Club sandwich</strong>
+            <div style="font-size:0.7rem; color:#6B7280;">&#8377;39 each</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <button class="m-circle-btn">-</button>
+            <span style="font-weight:700; font-size:0.82rem;">1</span>
+            <button class="m-circle-btn">+</button>
+            <span style="font-weight:700; font-size:0.85rem; margin-left:0.3rem;">&#8377;39</span>
+          </div>
+        </div>
+
+        <div class="m-item-row">
+          <div>
+            <strong style="font-size:0.82rem;">Veg Gochujang burger</strong>
+            <div style="font-size:0.7rem; color:#6B7280;">&#8377;69 each</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <button class="m-circle-btn">-</button>
+            <span style="font-weight:700; font-size:0.82rem;">1</span>
+            <button class="m-circle-btn">+</button>
+            <span style="font-weight:700; font-size:0.85rem; margin-left:0.3rem;">&#8377;69</span>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:#6B7280; margin-top:0.75rem;">
+          <span>Subtotal</span>
+          <span>&#8377;147</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; margin-top:0.25rem;">
+          <span>Grand Total</span>
+          <span>&#8377;147</span>
+        </div>
+
+        <button class="m-save-btn" onclick="alert('KOT Sent to Kitchen ESC/POS Printer via WiFi!')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Save Bill &bull; &#8377;147
+        </button>
+      </div>
+
+      <!-- Menu Card -->
+      <div class="m-card">
+        <div class="m-head-row">
+          <span class="m-title">Menu</span>
+        </div>
+
+        <input type="text" class="m-search" placeholder="Search items...">
+
+        <div class="m-pills-row">
+          <span class="m-pill active">All</span>
+          <span class="m-pill">Sandwiches</span>
+          <span class="m-pill">Burgers</span>
+          <span class="m-pill">Fries</span>
+          <span class="m-pill">Manchurian</span>
+          <span class="m-pill">Noodles</span>
+        </div>
+
+        <div class="m-menu-row selected">
+          <span style="font-size:0.84rem; font-weight:700;">Veg sandwich</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-family:'Playfair Display'; font-weight:700; color:#C59B27;">&#8377;39</span>
+            <div style="display:flex; align-items:center; gap:0.25rem;">
+              <button class="m-circle-btn">-</button>
+              <span style="font-weight:700; font-size:0.8rem;">1</span>
+              <button class="m-circle-btn">+</button>
+            </div>
+            <span style="font-size:0.65rem; border:1px solid #E5DFD5; padding:0.1rem 0.35rem; border-radius:3px; color:#6B7280;">FREE</span>
+          </div>
+        </div>
+
+        <div class="m-menu-row selected">
+          <span style="font-size:0.84rem; font-weight:700;">Club sandwich</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-family:'Playfair Display'; font-weight:700; color:#C59B27;">&#8377;39</span>
+            <div style="display:flex; align-items:center; gap:0.25rem;">
+              <button class="m-circle-btn">-</button>
+              <span style="font-weight:700; font-size:0.8rem;">1</span>
+              <button class="m-circle-btn">+</button>
+            </div>
+            <span style="font-size:0.65rem; border:1px solid #E5DFD5; padding:0.1rem 0.35rem; border-radius:3px; color:#6B7280;">FREE</span>
+          </div>
+        </div>
+
+        <div class="m-menu-row">
+          <span style="font-size:0.84rem; font-weight:700;">Veg korean toasty sandwich</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-family:'Playfair Display'; font-weight:700; color:#C59B27;">&#8377;59</span>
+            <span style="font-size:0.65rem; border:1px solid #E5DFD5; padding:0.1rem 0.35rem; border-radius:3px; color:#6B7280;">FREE</span>
+          </div>
+        </div>
+
+        <div class="m-menu-row">
+          <span style="font-size:0.84rem; font-weight:700;">Veg loaded sandwich / Paneer</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-family:'Playfair Display'; font-weight:700; color:#C59B27;">&#8377;59</span>
+            <span style="font-size:0.65rem; border:1px solid #E5DFD5; padding:0.1rem 0.35rem; border-radius:3px; color:#6B7280;">FREE</span>
+          </div>
+        </div>
+
+        <div class="m-menu-row">
+          <span style="font-size:0.84rem; font-weight:700;">Chicken sandwich</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-family:'Playfair Display'; font-weight:700; color:#C59B27;">&#8377;69</span>
+            <span style="font-size:0.65rem; border:1px solid #E5DFD5; padding:0.1rem 0.35rem; border-radius:3px; color:#6B7280;">FREE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="m-bottom-nav">
+      <span>&#9680;</span>
+      <span style="color:#C59B27; font-weight:bold;">&#8377;</span>
+      <span>&#43;</span>
+      <span>&#9671;</span>
+      <span>&#9776;</span>
+    </div>
+  </div>
+</body>
+</html>

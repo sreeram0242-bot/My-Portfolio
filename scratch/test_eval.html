@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<iframe id='f' src='http://localhost:8080/index.html' style='width:390px;height:844px;border:none;'></iframe>
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const doc = document.getElementById('f').contentDocument;
+    const w = 390;
+    const overflowing = [];
+    doc.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > w + 1) {
+        overflowing.push({
+          tag: el.tagName,
+          id: el.id || '',
+          cls: (el.className || '').toString().slice(0, 50),
+          right: Math.round(r.right),
+          width: Math.round(r.width)
+        });
+      }
+    });
+    console.log('RESULT:' + JSON.stringify({
+      docScrollWidth: doc.documentElement.scrollWidth,
+      bodyScrollWidth: doc.body.scrollWidth,
+      count: overflowing.length,
+      top10: overflowing.slice(0, 15)
+    }));
+  }, 1000);
+});
+</script>
+</body>
+</html>
