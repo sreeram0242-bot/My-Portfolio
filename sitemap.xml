@@ -4,34 +4,64 @@
   <url>
     <loc>https://sree-ram.is-a.dev/</loc>
     <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://sree-ram.is-a.dev/assets/images/sreeram-avatar.png</image:loc>
-      <image:title>Sreeram (Sree Ram) Fullstack Developer &amp; AI Engineer</image:title>
+      <image:title>Sreeram (Sree Ram) Fullstack Developer &amp; AI Engineer Portfolio</image:title>
       <image:caption>Official developer portfolio of Sreeram (Sree Ram) with C-Entrepreneurs</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://sree-ram.is-a.dev/#projects</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://sree-ram.is-a.dev/#ai-engine</loc>
+    <loc>https://sree-ram.is-a.dev/demos/gymflow/index.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sree-ram.is-a.dev/#agency</loc>
+    <loc>https://sree-ram.is-a.dev/demos/clouddine/index.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://sree-ram.is-a.dev/#contact</loc>
+    <loc>https://sree-ram.is-a.dev/demos/cafebistro/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/engineers-kitchen-pos/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/royal-carwash/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/happy-events/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/engineers-kitchen-mobile/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/spotdown/index.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sree-ram.is-a.dev/demos/whatsapp-crm/index.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
