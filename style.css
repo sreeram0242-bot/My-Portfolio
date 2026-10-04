@@ -917,18 +917,7 @@ section {
 }
 
 .insta-tap-badge {
-  background: var(--bg-secondary);
-  /* #F8F3ED */
-  color: var(--text-muted);
-  /* #756A60 */
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border: 1px solid var(--border-soft);
+  display: none !important;
 }
 
 /* Card Canvas: Frosted Glassmorphism Blur Effect Behind Original Photos */
@@ -951,37 +940,7 @@ section {
 
 /* Floating Demo Badge on Card Photo Canvas */
 .card-demo-badge {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  background: rgba(36, 34, 32, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 9999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  opacity: 0.92;
-  transform: translateY(0);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-  z-index: 5;
-}
-
-.card-canvas:hover .card-demo-badge {
-  opacity: 1;
-  background: var(--primary);
-  /* #3B7A57 */
-  border-color: rgba(255, 255, 255, 0.45);
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 6px 18px rgba(59, 122, 87, 0.4);
+  display: none !important;
 }
 
 /* Original Project Photo: Zero Frame, Rounded Corners, Elevated Soft Shadow */
@@ -1274,6 +1233,13 @@ section {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-dark);
+}
+
+.terminal-title-text {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #B5A698;
+  white-space: nowrap !important;
 }
 
 .terminal-dots {
@@ -2214,15 +2180,37 @@ section {
   }
 
   .terminal-top-strip {
-    padding: 0.45rem 0.85rem !important;
-    font-size: 0.65rem;
+    padding: 0.45rem 0.65rem !important;
+    gap: 0.35rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .terminal-dots {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    gap: 0.25rem !important;
+  }
+
+  .terminal-dot {
+    width: 8px !important;
+    height: 8px !important;
   }
 
   .terminal-title-text {
-    font-size: 0.6rem !important;
+    font-size: 0.62rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    text-align: center !important;
+    flex: 1 1 auto !important;
+    margin: 0 0.2rem !important;
   }
 
   .terminal-live-badge {
+    flex-shrink: 0 !important;
     font-size: 0.55rem !important;
     padding: 0.12rem 0.45rem !important;
   }
@@ -2386,20 +2374,26 @@ section {
   .agency-right {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem !important;
+    gap: 0.55rem !important;
   }
 
   .agency-offering-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.55rem !important;
-    padding: 0.2rem 0 !important;
+    gap: 0.75rem !important;
+    padding: 0.7rem 0.9rem !important;
+    background: var(--glass-cream-high) !important;
+    border: 1px solid var(--border-soft) !important;
+    border-radius: var(--radius-md) !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
   }
 
   .agency-offering-item svg {
-    width: 17px !important;
-    height: 17px !important;
-    margin-top: 0.1rem !important;
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+    margin-top: 0.12rem !important;
   }
 
   .offering-title {
