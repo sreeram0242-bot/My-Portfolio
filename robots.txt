@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /demos/
+
+# Sitemap index
+Sitemap: https://sree-ram.is-a.dev/sitemap.xml
